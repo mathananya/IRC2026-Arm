@@ -17,6 +17,7 @@ class JoyStickNode(Node):
         self.encoderDataSub = self.create_subscription(Int32MultiArray, "/arm_encoder_data", self.currStateProcess, 10)
         self.publisher = self.create_publisher(Int32MultiArray, "arm_target_states", 10)
         self.publisher_wrist = self.create_publisher(Int32MultiArray, "arm_wrist_commands", 10)
+        self.pwmpub = self.create_publisher(Int32MultiArray, "arm_pwm_commands", 10)
 
         self.keyboardSpinner = self.create_timer(0.01, self.keyboardCallback)
 
@@ -142,7 +143,8 @@ class JoyStickNode(Node):
                 self.data_array = keytoState(key)
                 stateToPublish = Int32MultiArray()
                 stateToPublish.data = self.data_array
-                self.publisher_wrist.publish(stateToPublish)
+                # self.publisher_wrist.publish(stateToPublish)
+                self.pwmpub.publish(stateToPublish)
                 self.get_logger().info(f"Published state : {stateToPublish.data}")
                 self.previousKey = key
             else:
