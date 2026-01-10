@@ -1,0 +1,34 @@
+[1.378s] Invoking command in '/home/criss/arm_control/src/arm_urdf': PYTHONPATH=/home/criss/arm_control/build/arm_urdf/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/criss/arm_control/install/arm_urdf/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/arm_urdf build --build-base /home/criss/arm_control/build/arm_urdf/build install --record /home/criss/arm_control/build/arm_urdf/install.log --single-version-externally-managed install_data
+[1.725s] running egg_info
+[1.726s] creating ../../build/arm_urdf/arm_urdf.egg-info
+[1.726s] writing ../../build/arm_urdf/arm_urdf.egg-info/PKG-INFO
+[1.726s] writing dependency_links to ../../build/arm_urdf/arm_urdf.egg-info/dependency_links.txt
+[1.726s] writing entry points to ../../build/arm_urdf/arm_urdf.egg-info/entry_points.txt
+[1.727s] writing requirements to ../../build/arm_urdf/arm_urdf.egg-info/requires.txt
+[1.727s] writing top-level names to ../../build/arm_urdf/arm_urdf.egg-info/top_level.txt
+[1.727s] writing manifest file '../../build/arm_urdf/arm_urdf.egg-info/SOURCES.txt'
+[1.729s] reading manifest file '../../build/arm_urdf/arm_urdf.egg-info/SOURCES.txt'
+[1.729s] adding license file 'LICENSE'
+[1.730s] writing manifest file '../../build/arm_urdf/arm_urdf.egg-info/SOURCES.txt'
+[1.730s] running build
+[1.730s] running build_py
+[1.731s] creating /home/criss/arm_control/build/arm_urdf/build
+[1.731s] creating /home/criss/arm_control/build/arm_urdf/build/lib
+[1.731s] creating /home/criss/arm_control/build/arm_urdf/build/lib/arm_urdf
+[1.731s] copying arm_urdf/__init__.py -> /home/criss/arm_control/build/arm_urdf/build/lib/arm_urdf
+[1.731s] running install
+[1.731s] running install_lib
+[1.731s] creating /home/criss/arm_control/install/arm_urdf/lib/python3.10/site-packages/arm_urdf
+[1.732s] copying /home/criss/arm_control/build/arm_urdf/build/lib/arm_urdf/__init__.py -> /home/criss/arm_control/install/arm_urdf/lib/python3.10/site-packages/arm_urdf
+[1.732s] byte-compiling /home/criss/arm_control/install/arm_urdf/lib/python3.10/site-packages/arm_urdf/__init__.py to __init__.cpython-310.pyc
+[1.732s] running install_data
+[1.732s] creating /home/criss/arm_control/install/arm_urdf/share/ament_index
+[1.733s] creating /home/criss/arm_control/install/arm_urdf/share/ament_index/resource_index
+[1.733s] creating /home/criss/arm_control/install/arm_urdf/share/ament_index/resource_index/packages
+[1.733s] copying resource/arm_urdf -> /home/criss/arm_control/install/arm_urdf/share/ament_index/resource_index/packages
+[1.733s] copying package.xml -> /home/criss/arm_control/install/arm_urdf/share/arm_urdf
+[1.733s] running install_egg_info
+[1.736s] Copying ../../build/arm_urdf/arm_urdf.egg-info to /home/criss/arm_control/install/arm_urdf/lib/python3.10/site-packages/arm_urdf-0.0.0-py3.10.egg-info
+[1.737s] running install_scripts
+[1.762s] writing list of installed files to '/home/criss/arm_control/build/arm_urdf/install.log'
+[1.798s] Invoked command in '/home/criss/arm_control/src/arm_urdf' returned '0': PYTHONPATH=/home/criss/arm_control/build/arm_urdf/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/criss/arm_control/install/arm_urdf/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/arm_urdf build --build-base /home/criss/arm_control/build/arm_urdf/build install --record /home/criss/arm_control/build/arm_urdf/install.log --single-version-externally-managed install_data

@@ -1,0 +1,37 @@
+[1.390s] Invoking command in '/home/criss/arm_control/src/arm_manual_control': PYTHONPATH=/home/criss/arm_control/build/arm_manual_control/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/criss/arm_control/install/arm_manual_control/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/arm_manual_control build --build-base /home/criss/arm_control/build/arm_manual_control/build install --record /home/criss/arm_control/build/arm_manual_control/install.log --single-version-externally-managed install_data
+[1.739s] running egg_info
+[1.740s] creating ../../build/arm_manual_control/arm_manual_control.egg-info
+[1.741s] writing ../../build/arm_manual_control/arm_manual_control.egg-info/PKG-INFO
+[1.741s] writing dependency_links to ../../build/arm_manual_control/arm_manual_control.egg-info/dependency_links.txt
+[1.741s] writing entry points to ../../build/arm_manual_control/arm_manual_control.egg-info/entry_points.txt
+[1.741s] writing requirements to ../../build/arm_manual_control/arm_manual_control.egg-info/requires.txt
+[1.741s] writing top-level names to ../../build/arm_manual_control/arm_manual_control.egg-info/top_level.txt
+[1.741s] writing manifest file '../../build/arm_manual_control/arm_manual_control.egg-info/SOURCES.txt'
+[1.743s] reading manifest file '../../build/arm_manual_control/arm_manual_control.egg-info/SOURCES.txt'
+[1.744s] adding license file 'LICENSE'
+[1.745s] writing manifest file '../../build/arm_manual_control/arm_manual_control.egg-info/SOURCES.txt'
+[1.745s] running build
+[1.745s] running build_py
+[1.745s] creating /home/criss/arm_control/build/arm_manual_control/build
+[1.745s] creating /home/criss/arm_control/build/arm_manual_control/build/lib
+[1.745s] creating /home/criss/arm_control/build/arm_manual_control/build/lib/arm_manual_control
+[1.745s] copying arm_manual_control/__init__.py -> /home/criss/arm_control/build/arm_manual_control/build/lib/arm_manual_control
+[1.746s] copying arm_manual_control/commands.py -> /home/criss/arm_control/build/arm_manual_control/build/lib/arm_manual_control
+[1.746s] running install
+[1.746s] running install_lib
+[1.747s] creating /home/criss/arm_control/install/arm_manual_control/lib/python3.10/site-packages/arm_manual_control
+[1.747s] copying /home/criss/arm_control/build/arm_manual_control/build/lib/arm_manual_control/__init__.py -> /home/criss/arm_control/install/arm_manual_control/lib/python3.10/site-packages/arm_manual_control
+[1.747s] copying /home/criss/arm_control/build/arm_manual_control/build/lib/arm_manual_control/commands.py -> /home/criss/arm_control/install/arm_manual_control/lib/python3.10/site-packages/arm_manual_control
+[1.748s] byte-compiling /home/criss/arm_control/install/arm_manual_control/lib/python3.10/site-packages/arm_manual_control/__init__.py to __init__.cpython-310.pyc
+[1.748s] byte-compiling /home/criss/arm_control/install/arm_manual_control/lib/python3.10/site-packages/arm_manual_control/commands.py to commands.cpython-310.pyc
+[1.749s] running install_data
+[1.749s] creating /home/criss/arm_control/install/arm_manual_control/share/ament_index
+[1.749s] creating /home/criss/arm_control/install/arm_manual_control/share/ament_index/resource_index
+[1.749s] creating /home/criss/arm_control/install/arm_manual_control/share/ament_index/resource_index/packages
+[1.749s] copying resource/arm_manual_control -> /home/criss/arm_control/install/arm_manual_control/share/ament_index/resource_index/packages
+[1.749s] copying package.xml -> /home/criss/arm_control/install/arm_manual_control/share/arm_manual_control
+[1.749s] running install_egg_info
+[1.752s] Copying ../../build/arm_manual_control/arm_manual_control.egg-info to /home/criss/arm_control/install/arm_manual_control/lib/python3.10/site-packages/arm_manual_control-0.0.0-py3.10.egg-info
+[1.753s] running install_scripts
+[1.778s] writing list of installed files to '/home/criss/arm_control/build/arm_manual_control/install.log'
+[1.838s] Invoked command in '/home/criss/arm_control/src/arm_manual_control' returned '0': PYTHONPATH=/home/criss/arm_control/build/arm_manual_control/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/criss/arm_control/install/arm_manual_control/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/arm_manual_control build --build-base /home/criss/arm_control/build/arm_manual_control/build install --record /home/criss/arm_control/build/arm_manual_control/install.log --single-version-externally-managed install_data
