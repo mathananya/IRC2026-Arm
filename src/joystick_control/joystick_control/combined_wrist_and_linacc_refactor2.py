@@ -138,7 +138,7 @@ class JoyStickNode(Node):
 
     def keyboardCallback(self):
         key = getch()
-        if key is not None and self.previousKey != key:
+        if key is not None :
             if key != 'q':
                 self.data_array = keytoState(key)
                 stateToPublish = Int32MultiArray()
