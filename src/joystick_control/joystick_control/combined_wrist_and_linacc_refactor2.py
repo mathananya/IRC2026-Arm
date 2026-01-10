@@ -6,6 +6,7 @@ from std_msgs.msg import Float32MultiArray,Float64
 from getch import getch
 from keymap import keytoState
 from joymap import mapJoystickToAction
+from wrist_data_remap import wrist_map
 
 class JoyStickNode(Node):
 
@@ -122,16 +123,9 @@ class JoyStickNode(Node):
             gripper_data = msg.axes[3]
             gripper_pwm = int(gripper_data * 100)
             
-            if wrist_data[0] == 0.0 and wrist_data[1] == 1.0:
-                self.wrist_pwm_left, self.wrist_pwm_right = -100, -100
-            elif wrist_data[0] == 0.0 and wrist_data[1] == -1.0:
-                self.wrist_pwm_left, self.wrist_pwm_right = 100, 100
-            elif wrist_data[0] == 1.0 and wrist_data[1] == 0.0:
-                self.wrist_pwm_left, self.wrist_pwm_right = 100, -100
-            elif wrist_data[0] == -1.0 and wrist_data[1] == 0.0:
-                self.wrist_pwm_left, self.wrist_pwm_right = -100, 100
-            elif wrist_data[0] == 0.0 and wrist_data[1] == 0.0:
-                self.wrist_pwm_left, self.wrist_pwm_right = 0, 0
+            res = wrist_map(wrist_data)
+            if res is not None:
+                self.wrist_pwm_left, self.wrist_pwm_right = res[0], res[1]
             
             pwm_publish_wrist.data = [0, 0, self.wrist_pwm_left, self.wrist_pwm_right, gripper_pwm]
             self.publisher_wrist.publish(pwm_publish_wrist)
