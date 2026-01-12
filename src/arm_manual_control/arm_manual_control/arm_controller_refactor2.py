@@ -21,14 +21,12 @@ class ArmControllerIntegrated(Node):
             Int32MultiArray, 'arm_encoder_data', self.encoder_callback, 10)
         self.target_subscriber = self.create_subscription(
             Int32MultiArray, 'arm_target_states', self.target_callback, 10)
-        self.wrist_subscriber = self.create_subscription(
-            Int32MultiArray, 'arm_wrist_commands', self.wrist_callback, 10)
         
         
         self.pwm_publisher = self.create_publisher(Int32MultiArray, 'arm_pwm_commands', 10)
         
         
-        self.timer = self.create_timer(0.3, self.control_loop)
+        self.timer = self.create_timer(0.01, self.control_loop)
         
         self.current_states = [0.0, 0.0]
         self.target_states = [0.0, 0.0]
@@ -54,57 +52,68 @@ class ArmControllerIntegrated(Node):
         self.start_PID = True
         self.stop_decision = True
         
-    def wrist_callback(self, msg):
-        self.wrist_pwm = msg.data[2:5]
-        self.get_logger().info(f'Wrist PWM: {self.wrist_pwm}')
         
-        pwm_values = Int32MultiArray()
-        pwm_values.data = [int(self.upper_pwm), int(self.lower_pwm), 
-                          int(self.wrist_pwm[0]), int(self.wrist_pwm[1]), int(self.wrist_pwm[2])]
-        self.pwm_publisher.publish(pwm_values)
-        
+    # def control_loop(self):
+    #     if self.start_PID == True:
+    #         upper_current_value, lower_current_value = self.current_states
+    #         upper_target_value, lower_target_value = self.target_states
+            
+    #         upper_control_output = self.upper_pid.update(upper_current_value, upper_target_value)
+    #         lower_control_output = self.lower_pid.update(lower_current_value, lower_target_value)
+            
+    #         self.lower_pwm += lower_control_output
+    #         self.upper_pwm -= upper_control_output
+            
+    #         max_pwm = 150
+    #         self.upper_pwm = max(min(self.upper_pwm, max_pwm), -max_pwm)
+    #         self.lower_pwm = max(min(self.lower_pwm, max_pwm), -max_pwm)
+            
+    #         if abs(upper_current_value - upper_target_value) < self.limit_margin:
+    #             self.upper_limit_flag = True
+    #             self.upper_pwm = 0
+    #         else:
+    #             self.upper_limit_flag = False
+                
+    #         if abs(lower_current_value - lower_target_value) < self.limit_margin:
+    #             self.lower_limit_flag = True
+    #             self.lower_pwm = 0
+    #         else:
+    #             self.lower_limit_flag = False
+            
+    #         if self.lower_limit_flag == True and self.upper_limit_flag == True:
+    #             self.stop_decision = False
+            
+    #         pwm_values = Int32MultiArray()
+    #         pwm_values.data = [int(self.upper_pwm), int(self.lower_pwm), 
+    #                           int(self.wrist_pwm[0]), int(self.wrist_pwm[1]), int(self.wrist_pwm[2])]
+            
+    #         self.get_logger().info(
+    #             f'Upper: {upper_current_value}->{upper_target_value} PWM:{self.upper_pwm} | '
+    #             f'Lower: {lower_current_value}->{lower_target_value} PWM:{self.lower_pwm}'
+    #         )
+            
+    #         if self.stop_decision:
+    #             self.pwm_publisher.publish(pwm_values)
+    #             self.get_logger().info(f"Published to encoder : {pwm_values}")
+    
     def control_loop(self):
         if self.start_PID == True:
             upper_current_value, lower_current_value = self.current_states
             upper_target_value, lower_target_value = self.target_states
-            
-            upper_control_output = self.upper_pid.update(upper_current_value, upper_target_value)
-            lower_control_output = self.lower_pid.update(lower_current_value, lower_target_value)
-            
-            self.lower_pwm += lower_control_output
-            self.upper_pwm -= upper_control_output
-            
-            max_pwm = 150
-            self.upper_pwm = max(min(self.upper_pwm, max_pwm), -max_pwm)
-            self.lower_pwm = max(min(self.lower_pwm, max_pwm), -max_pwm)
-            
-            if abs(upper_current_value - upper_target_value) < self.limit_margin:
-                self.upper_limit_flag = True
-                self.upper_pwm = 0
-            else:
-                self.upper_limit_flag = False
-                
-            if abs(lower_current_value - lower_target_value) < self.limit_margin:
-                self.lower_limit_flag = True
-                self.lower_pwm = 0
-            else:
-                self.lower_limit_flag = False
-            
-            if self.lower_limit_flag == True and self.upper_limit_flag == True:
-                self.stop_decision = False
-            
+        
+            self.upper_pwm = self.upper_pid.update(upper_current_value, upper_target_value)
+            self.lower_pwm = self.lower_pid.update(lower_current_value, lower_target_value)
+        
             pwm_values = Int32MultiArray()
-            pwm_values.data = [int(self.upper_pwm), int(self.lower_pwm), 
-                              int(self.wrist_pwm[0]), int(self.wrist_pwm[1]), int(self.wrist_pwm[2])]
-            
+            pwm_values.data = [int(self.upper_pwm), int(self.lower_pwm), 0, 0, 0]
+        
+            self.pwm_publisher.publish(pwm_values)
+        
             self.get_logger().info(
                 f'Upper: {upper_current_value}->{upper_target_value} PWM:{self.upper_pwm} | '
                 f'Lower: {lower_current_value}->{lower_target_value} PWM:{self.lower_pwm}'
             )
-            
-            if self.stop_decision:
-                self.pwm_publisher.publish(pwm_values)
-                self.get_logger().info(f"Published to encoder : {pwm_values}")
+
 
     def shutdown(self):
         self.get_logger().info("Shutting down Integrated Arm Controller...")
