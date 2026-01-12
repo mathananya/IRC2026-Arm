@@ -44,7 +44,7 @@ class JoyStickNode(Node):
         joyArray = self.buttons[7:12]
         pwmPubVal = mapJoyAxes(self.axes)
 
-        pwmMsg = Int32MultiArray
+        pwmMsg = Int32MultiArray()
         pwmMsg.data = pwmPubVal
         self.pwmpub.publish(pwmMsg)
         self.get_logger().info(f"Published axes message : {pwmMsg.data}")
