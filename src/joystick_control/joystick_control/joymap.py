@@ -19,3 +19,19 @@ def mapJoystickToAction(joyArray):
     if tuple(joyArray) in JoyMap:
         target_state =  JoyMap[tuple(joyArray)]
     return target_state
+
+
+def mapJoyAxes(joyAxes):
+    pwm_val = [0,0,0,0,0]
+    VAL = 50
+    if(joyAxes[1] == 1):
+        pwm_val[1] += VAL 
+    elif(joyAxes[1] == -1):
+        pwm_val[1] -= VAL
+    if(joyAxes[5] == 1):
+        pwm_val[0] += VAL
+    elif(joyAxes[5] == -1):
+        pwm_val[0] -= VAL
+    #gripper yet to add, ask what key on keyboard was doing gripper and 
+    # the decided switch is joyAxes[3]
+    return pwm_val

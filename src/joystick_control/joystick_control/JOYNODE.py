@@ -26,7 +26,8 @@ class JOYNODE(Node):
             toPublish.data = trgtState
             self.publisher.publish(toPublish)
             self.get_logger().info(f"Published State : {toPublish.data}")
-            return
+        
+        
 
 def main(args=None):
     rclpy.init(args=args)
