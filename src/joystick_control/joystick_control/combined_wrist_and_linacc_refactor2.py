@@ -6,7 +6,7 @@ from std_msgs.msg import Float32MultiArray,Float64
 from getch import getch
 from keymap import keytoState
 from joymap import mapJoystickToAction
-# from wrist_data_remap import wrist_map
+from joymap import mapJoyAxes
 import threading
 class JoyStickNode(Node):
 
@@ -42,6 +42,12 @@ class JoyStickNode(Node):
         self.axes = msg.axes
 
         joyArray = self.buttons[7:12]
+        pwmPubVal = mapJoyAxes(self.axes)
+
+        pwmMsg = Int32MultiArray
+        pwmMsg.data = pwmPubVal
+        self.pwmpub.publish(pwmMsg)
+        self.get_logger().info(f"Published axes message : {pwmMsg.data}")
         
         trgtState = mapJoystickToAction(joyArray)
         if trgtState is not None:
@@ -49,10 +55,7 @@ class JoyStickNode(Node):
             toPublish.data = trgtState
             self.publisher.publish(toPublish)
             self.get_logger().info(f"Published State : {toPublish.data}")
-        
-
-        
-
+           
 
         # x_flag = msg.buttons[5]
         # y_flag = msg.buttons[3]
@@ -153,7 +156,6 @@ class JoyStickNode(Node):
                 self.data_array = keytoState(key)
                 stateToPublish = Int32MultiArray()
                 stateToPublish.data = self.data_array
-                # self.publisher_wrist.publish(stateToPublish)
                 self.pwmpub.publish(stateToPublish)
                 self.get_logger().info(f"Published state : {stateToPublish.data}")
                 self.previousKey = key

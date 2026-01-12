@@ -17,7 +17,7 @@ def mapJoystickToAction(joyArray):
         (0,0,0,0,1) : ARM_EXTEND
     }
     if tuple(joyArray) in JoyMap:
-        target_state =  JoyMap[tuple(joyArray)]
+        target_state =  JoyMap.get(tuple(joyArray))
     return target_state
 
 
