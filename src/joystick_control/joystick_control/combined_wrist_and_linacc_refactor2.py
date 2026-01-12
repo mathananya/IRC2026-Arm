@@ -14,7 +14,7 @@ class JoyStickNode(Node):
         super().__init__("joystick")
 
         self.joysub = self.create_subscription(Joy, "/joy", self.joycallback, 10)
-        self.encoderDataSub = self.create_subscription(Int32MultiArray, "/arm_encoder_data", self.currStateProcess, 10)
+        self.encoderDataSub = self.create_subscription(Int32MultiArray, "arm_encoder_data", self.currStateProcess, 10)
         self.publisher = self.create_publisher(Int32MultiArray, "arm_target_states", 10)
         self.publisher_wrist = self.create_publisher(Int32MultiArray, "arm_wrist_commands", 10)
         self.pwmpub = self.create_publisher(Int32MultiArray, "arm_pwm_commands", 10)
@@ -33,10 +33,12 @@ class JoyStickNode(Node):
         
     
     def joycallback(self, msg):
+        print("hi")
         self.buttons = msg.buttons
         self.axes = msg.axes
 
         joyArray = self.buttons[7:12]
+        
         trgtState = mapJoystickToAction(joyArray)
         if trgtState is not None:
             toPublish = Int32MultiArray()

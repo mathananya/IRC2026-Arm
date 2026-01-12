@@ -1,7 +1,7 @@
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import Int32MultiArray
-from pid import PIDController
+from pid2 import PIDController
 import time
 
 
@@ -14,7 +14,7 @@ class ArmControllerIntegrated(Node):
         Ki = 10.0
         Kd = 0.02
         self.upper_pid = PIDController(Kp, Ki, Kd, integral_max=10, integral_min=-10, margin_of_error=3)
-        self.lower_pid = PIDController(Kp, Ki, Kd, integral_max=10, integral_min=-10, margin_of_error=3)
+        self.lower_pid = PIDController(Kp, Ki, Kd, integral_max=10, integral_min=-10, margin_of_error=3, flag = 1)
         
         
         self.encoder_subscriber = self.create_subscription(
@@ -104,6 +104,7 @@ class ArmControllerIntegrated(Node):
             
             if self.stop_decision:
                 self.pwm_publisher.publish(pwm_values)
+                self.get_logger().info(f"Published to encoder : {pwm_values}")
 
     def shutdown(self):
         self.get_logger().info("Shutting down Integrated Arm Controller...")
