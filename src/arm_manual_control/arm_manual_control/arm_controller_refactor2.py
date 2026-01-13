@@ -13,8 +13,8 @@ class ArmControllerIntegrated(Node):
         Kp = 15.0
         Ki = 10.0
         Kd = 0.02
-        self.upper_pid = PIDController(Kp, Ki, Kd, integral_max=10, integral_min=-10, margin_of_error=3)
-        self.lower_pid = PIDController(Kp, Ki, Kd, integral_max=10, integral_min=-10, margin_of_error=3, flag = 1)
+        self.upper_pid = PIDController(Kp, Ki, Kd, integral_max=10, integral_min=-10, margin_of_error=8)
+        self.lower_pid = PIDController(Kp, Ki, Kd, integral_max=10, integral_min=-10, margin_of_error=8)
         
         
         self.encoder_subscriber = self.create_subscription(
@@ -32,7 +32,7 @@ class ArmControllerIntegrated(Node):
         self.target_states = [0.0, 0.0]
         self.upper_pwm = 0
         self.lower_pwm = 0
-        self.start_PID = False
+        self.start_PID = True
         
         self.wrist_pwm = [0, 0, 0]
         
@@ -40,6 +40,9 @@ class ArmControllerIntegrated(Node):
         self.lower_limit_flag = False
         self.stop_decision = True
         self.limit_margin = 15
+        self.PIDMargin = 8
+
+        self.PWMmax = 150
         
         self.get_logger().info('Integrated Arm Controller Started')
 
@@ -50,7 +53,7 @@ class ArmControllerIntegrated(Node):
         self.target_states = msg.data[:2]
         self.get_logger().info(f'Target received: {self.target_states}')
         self.start_PID = True
-        self.stop_decision = True
+        self.stop_decision = False
         
         
     # def control_loop(self):
@@ -97,12 +100,30 @@ class ArmControllerIntegrated(Node):
     #             self.get_logger().info(f"Published to encoder : {pwm_values}")
     
     def control_loop(self):
+
+        if((abs(self.current_states[0] - self.target_states[0]) < self.PIDMargin) and (abs(self.current_states[1] - self.target_states[1]) < self.PIDMargin)):
+            self.start_PID = False
+        else:
+            self.start_PID = True
+
         if self.start_PID == True:
             upper_current_value, lower_current_value = self.current_states
             upper_target_value, lower_target_value = self.target_states
+
         
             self.upper_pwm = self.upper_pid.update(upper_current_value, upper_target_value)
             self.lower_pwm = self.lower_pid.update(lower_current_value, lower_target_value)
+
+            if(abs(self.upper_pwm) > self.PWMmax):
+                if(self.upper_pwm > 0):
+                    self.upper_pwm = self.PWMmax
+                else:
+                    self.upper_pwm = -self.PWMmax
+            if(abs(self.lower_pwm) > self.PWMmax):
+                if(self.lower_pwm > 0):
+                    self.lower_pwm = self.PWMmax
+                else:
+                    self.lower_pwm = -self.PWMmax
         
             pwm_values = Int32MultiArray()
             pwm_values.data = [int(self.upper_pwm), int(self.lower_pwm), 0, 0, 0]

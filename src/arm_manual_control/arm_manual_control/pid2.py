@@ -26,7 +26,7 @@ class PIDController:
         
         self.error = setpoint - current_value
         
-        print(f"Error: {self.error}, dt: {self.dt:.4f}")
+        # print(f"Error: {self.error}, dt: {self.dt:.4f}")
         
         # Check if the error is within the margin
         if abs(self.error) <= self.margin_of_error:
@@ -39,12 +39,15 @@ class PIDController:
             self.derivative = (self.error - self.prev_error) / self.dt
             
             self.output = self.Kp * self.error + self.Ki * self.integral + self.Kd * self.derivative
+            self.prev_error = self.error
+        
+        # print(f"Output: {self.output:.2f}")
             
-            print(f"P: {self.Kp * self.error:.2f}, I: {self.Ki * self.integral:.2f}, D: {self.Kd * self.derivative:.2f}")
+            # print(f"P: {self.Kp * self.error:.2f}, I: {self.Ki * self.integral:.2f}, D: {self.Kd * self.derivative:.2f}")
             
             self.prev_error = self.error
         
-        print(f"Output: {self.output:.2f}")
+        # print(f"Output: {self.output:.2f}")
         
         self.last_timestamp = self.current_timestamp
         return self.output
