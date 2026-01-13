@@ -39,7 +39,7 @@ class ArmControllerIntegrated(Node):
         self.upper_limit_flag = False
         self.lower_limit_flag = False
         self.stop_decision = True
-        self.limit_margin = 15
+        # self.limit_margin = 15
         self.PIDMargin = 8
 
         self.PWMmax = 150
@@ -92,7 +92,7 @@ class ArmControllerIntegrated(Node):
             
     #         self.get_logger().info(
     #             f'Upper: {upper_current_value}->{upper_target_value} PWM:{self.upper_pwm} | '
-    #             f'Lower: {lower_current_value}->{lower_target_value} PWM:{self.lower_pwm}'
+    #    z         f'Lower: {lower_current_value}->{lower_target_value} PWM:{self.lower_pwm}'
     #         )
             
     #         if self.stop_decision:
@@ -106,10 +106,10 @@ class ArmControllerIntegrated(Node):
         else:
             self.start_PID = True
 
+
         if self.start_PID == True:
             upper_current_value, lower_current_value = self.current_states
             upper_target_value, lower_target_value = self.target_states
-
         
             self.upper_pwm = self.upper_pid.update(upper_current_value, upper_target_value)
             self.lower_pwm = self.lower_pid.update(lower_current_value, lower_target_value)
