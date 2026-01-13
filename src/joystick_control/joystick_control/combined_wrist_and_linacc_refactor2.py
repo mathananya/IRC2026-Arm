@@ -14,15 +14,18 @@ class JoyStickNode(Node):
         super().__init__("joystick")
 
         self.joysub = self.create_subscription(Joy, "/joy", self.joycallback, 10)
-        self.encoderDataSub = self.create_subscription(Int32MultiArray, "arm_encoder_data", self.currStateProcess, 10)
+        # self.encoderDataSub = self.create_subscription(Int32MultiArray, "arm_encoder_data", self.currStateProcess, 10)
         self.publisher = self.create_publisher(Int32MultiArray, "arm_target_states", 10)
         # self.publisher_wrist = self.create_publisher(Int32MultiArray, "arm_wrist_commands", 10)
         self.pwmpub = self.create_publisher(Int32MultiArray, "arm_pwm_commands", 10)
 
-        self.keyboardSpinner = threading.Thread(
-            target = self.keyboardCallback,
-            daemon = True
-        )
+        # self.keyboardSpinner = threading.Thread(
+        #     target = self.keyboardCallback,
+        #     daemon = False
+        # )
+        
+        # self.keyboardSpinner.start()
+        self.keyboardSpinnerTimer = self.create_timer(0.01, self.keyboardCallback)
 
 
         self.previousKey = None
@@ -145,9 +148,9 @@ class JoyStickNode(Node):
         #     self.get_logger().info(f"Wrist PWM: {pwm_publish_wrist.data}")
 
 
-    def currStateProcess(self, msg):
-        self.upperActuatorState = msg.data[0]
-        self.lowerActuatorState = msg.data[1]
+    # def currStateProcess(self, msg):
+    #     self.upperActuatorState = msg.data[0]
+    #     self.lowerActuatorState = msg.data[1]
 
     def keyboardCallback(self):
         key = getch()
@@ -158,7 +161,7 @@ class JoyStickNode(Node):
                 stateToPublish.data = self.data_array
                 self.pwmpub.publish(stateToPublish)
                 self.get_logger().info(f"Published state : {stateToPublish.data}")
-                self.previousKey = key
+                # self.previousKey = key
             else:
                 raise KeyboardInterrupt
 

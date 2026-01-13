@@ -23,11 +23,11 @@ def mapJoystickToAction(joyArray):
 
 def mapJoyAxes(joyAxes):
     pwm_val = [0,0,0,0,0]
-    VAL = 50
+    VAL = 100
     if(joyAxes[1] == 1):
-        pwm_val[1] += VAL 
+        pwm_val[1] -= VAL 
     elif(joyAxes[1] == -1):
-        pwm_val[1] -= VAL
+        pwm_val[1] += VAL
     if(joyAxes[5] == 1):
         pwm_val[0] += VAL
     elif(joyAxes[5] == -1):
