@@ -8,13 +8,13 @@ import time
 class ArmControllerIntegrated(Node):
     def __init__(self):
         super().__init__('arm_controller_integrated')
-        
-        
+         
         Kp = 15.0
         Ki = 10.0
         Kd = 0.02
-        self.upper_pid = PIDController(Kp, Ki, Kd, integral_max=10, integral_min=-10, margin_of_error=8)
-        self.lower_pid = PIDController(Kp, Ki, Kd, integral_max=10, integral_min=-10, margin_of_error=8)
+
+        self.upper_pid = PIDController(Kp, Ki, Kd, integral_max=10, integral_min=-10, margin_of_error=20)
+        self.lower_pid = PIDController(Kp, Ki, Kd, integral_max=10, integral_min=-10, margin_of_error=20)
         
         
         self.encoder_subscriber = self.create_subscription(
@@ -32,7 +32,7 @@ class ArmControllerIntegrated(Node):
         self.target_states = [0.0, 0.0]
         self.upper_pwm = 0
         self.lower_pwm = 0
-        self.start_PID = True
+        self.start_PID = False
         
         self.wrist_pwm = [0, 0, 0]
         
@@ -40,9 +40,8 @@ class ArmControllerIntegrated(Node):
         self.lower_limit_flag = False
         self.stop_decision = True
         # self.limit_margin = 15
-        self.PIDMargin = 8
-
-        self.PWMmax = 150
+        self.PIDMargin = 20
+        self.PWMmax = 100
         
         self.get_logger().info('Integrated Arm Controller Started')
 
@@ -53,7 +52,7 @@ class ArmControllerIntegrated(Node):
         self.target_states = msg.data[:2]
         self.get_logger().info(f'Target received: {self.target_states}')
         self.start_PID = True
-        self.stop_decision = False
+        # self.stop_decision = False
         
         
     # def control_loop(self):
@@ -101,10 +100,12 @@ class ArmControllerIntegrated(Node):
     
     def control_loop(self):
 
-        if((abs(self.current_states[0] - self.target_states[0]) < self.PIDMargin) and (abs(self.current_states[1] - self.target_states[1]) < self.PIDMargin)):
+        if((abs(self.current_states[0] - self.target_states[0]) < self.PIDMargin) or (abs(self.current_states[1] - self.target_states[1]) < self.PIDMargin)):
             self.start_PID = False
-        else:
-            self.start_PID = True
+            self.upper_pid.updateError(0)
+            self.lower_pid.updateError(0)
+            self.upper_pid.updateIntegral(0)
+            self.lower_pid.updateIntegral(0)
 
 
         if self.start_PID == True:

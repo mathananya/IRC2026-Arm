@@ -51,3 +51,9 @@ class PIDController:
         
         self.last_timestamp = self.current_timestamp
         return self.output
+    
+    def updateError(self, errorVal):
+        self.prev_error = errorVal
+
+    def updateIntegral(self, integVal):
+        self.integral = integVal

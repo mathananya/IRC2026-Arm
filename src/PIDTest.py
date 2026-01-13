@@ -1,9 +1,14 @@
 from arm_manual_control.arm_manual_control.pid2 import PIDController
 import time
 
-Kp = 15.0
-Ki = 10.0
-Kd = 0.02
+Kp = 0.5
+Ki = 0
+Kd = 0
+
+# Kp = 15.0
+# Ki = 10.0
+# Kd = 0.02
+
 upper_pid = PIDController(Kp, Ki, Kd, integral_max=10, integral_min=-10, margin_of_error=3)
 lower_pid = PIDController(Kp, Ki, Kd, integral_max=10, integral_min=-10, margin_of_error=3)
 target_state = [300, 509]
