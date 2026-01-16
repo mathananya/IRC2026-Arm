@@ -3,8 +3,8 @@ def keytoState(key):
 
     darray = [0, 0, 0, 0, 0]
     m = {
-    'w': (0, 1),
-    's': (0, -1),
+    'w': (0, -1),
+    's': (0, 1),
     'a': (1, 1),
     'd': (1, -1),
     'r': (2, 1),
@@ -22,3 +22,17 @@ def keytoState(key):
         darray[pos] += VAL * factor
 
     return darray
+
+
+'''
+First Encoder : Lower One :
+
+-ve pwm : value increases, goes down
++ve pwm : value decreases, comes up
+
+Second Encoder : Upper One: 
+
+-ve pwm : value decreases, goes ahead
++ve pwm : value increases, comes back
+
+'''

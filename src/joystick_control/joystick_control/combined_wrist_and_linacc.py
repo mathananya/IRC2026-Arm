@@ -2,7 +2,6 @@ import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Joy
 from std_msgs.msg import Int32MultiArray
-from std_msgs.msg import Float32MultiArray,Float64
 import termios
 import tty
 import sys

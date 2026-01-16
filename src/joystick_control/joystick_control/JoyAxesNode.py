@@ -4,7 +4,7 @@ from sensor_msgs.msg import Joy
 from std_msgs.msg import Int32MultiArray
 from joymap import mapJoystickToAction, mapJoyAxes
 
-class JOYNODE(Node):
+class JoyAxes(Node):
     def __init__(self):
         super().__init__('joynode')
         self.sub = self.create_subscription(Joy, '/joy', self.joycallback, 10)
@@ -13,7 +13,7 @@ class JOYNODE(Node):
 
     def joycallback(self, msg):
 
-        self.buttons = msg.buttons
+        # self.buttons = msg.buttons
         self.axes = msg.axes
 
         joyAx = []
@@ -25,34 +25,38 @@ class JOYNODE(Node):
                     joyAx.append(-1)
             else:
                 joyAx.append(0)
+        
 
-        joyArray = self.buttons[7:12]
         pwmPubVal = mapJoyAxes(joyAx)
 
         pwmMsg = Int32MultiArray()
         pwmMsg.data = pwmPubVal
+
         self.pwmpub.publish(pwmMsg)
         self.get_logger().info(f"Published axes message : {pwmMsg.data}")
+
+
+        # joyArray = self.buttons[7:12]
         
-        trgtState = mapJoystickToAction(joyArray)
-        if trgtState is not None:
-            toPublish = Int32MultiArray()
-            toPublish.data = trgtState
-            self.publisher.publish(toPublish)
-            self.get_logger().info(f"Published State : {toPublish.data}")
+        # trgtState = mapJoystickToAction(joyArray)
+        # if trgtState is not None:
+        #     toPublish = Int32MultiArray()
+        #     toPublish.data = trgtState
+        #     self.publisher.publish(toPublish)
+        #     self.get_logger().info(f"Published State : {toPublish.data}")
         
         
 
 def main(args=None):
     rclpy.init(args=args)
-    joystick_node = JOYNODE()
+    joystickaxes = JoyAxes()
     
     try:
-        rclpy.spin(joystick_node)
+        rclpy.spin(joystickaxes)
     except KeyboardInterrupt:
         pass
     finally:
-        joystick_node.destroy_node()
+        joystickaxes.destroy_node()
         rclpy.shutdown()
 
 
