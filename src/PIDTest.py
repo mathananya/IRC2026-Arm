@@ -1,9 +1,9 @@
 from arm_manual_control.arm_manual_control.pid2 import PIDController
 import time
 
-Kp = 0.5
-Ki = 0
-Kd = 0
+Kp = 0.7
+Ki = 0.3
+Kd = 0.02
 
 # Kp = 15.0
 # Ki = 10.0
@@ -23,7 +23,7 @@ PWMMax = 150
 stop_Pid = False
 
 while(stop_Pid == False):
-    time.sleep(0.02)
+    time.sleep(0.05)
     upperPwm = upper_pid.update(current_upper, tupper)
     lowerPwm = lower_pid.update(current_lower, tlower)
 

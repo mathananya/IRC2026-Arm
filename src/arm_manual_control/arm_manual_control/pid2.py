@@ -19,8 +19,8 @@ class PIDController:
         self.dt = self.current_timestamp - self.last_timestamp
         
         
-        if self.dt < 0.001:
-            return self.output
+        # if self.dt < 0.001:
+        #     return self.output
         if self.dt > 1.0: 
             self.dt = 0.02
         
@@ -29,28 +29,34 @@ class PIDController:
         # print(f"Error: {self.error}, dt: {self.dt:.4f}")
         
         # Check if the error is within the margin
-        if abs(self.error) <= self.margin_of_error:
-            self.output = 0
+        # if abs(self.error) <= self.margin_of_error:
+        #     self.output = 0
         
-        else:
-            self.integral += self.error * self.dt
-            self.integral = max(min(self.integral, self.integral_max), self.integral_min)  # Anti-windup
+        
+        self.integral += self.error * self.dt
+            # self.integral = max(min(self.integral, self.integral_max), self.integral_min)  # Anti-windup
+        self.integral = min(self.integral, self.integral_max)
             
-            self.derivative = (self.error - self.prev_error) / self.dt
+        self.derivative = (self.error - self.prev_error) / self.dt
             
-            self.output = self.Kp * self.error + self.Ki * self.integral + self.Kd * self.derivative
-            self.prev_error = self.error
+        self.output = self.Kp * self.error + self.Ki * self.integral + self.Kd * self.derivative
+        self.prev_error = self.error
         
         # print(f"Output: {self.output:.2f}")
             
             # print(f"P: {self.Kp * self.error:.2f}, I: {self.Ki * self.integral:.2f}, D: {self.Kd * self.derivative:.2f}")
             
-            self.prev_error = self.error
+            # self.prev_error = self.error
         
         # print(f"Output: {self.output:.2f}")
         
         self.last_timestamp = self.current_timestamp
-        return self.output
+
+        # return self.output
+        if(self.flag==1):
+            return -self.output
+        else:
+            return self.output
     
     def updateError(self, errorVal):
         self.prev_error = errorVal
