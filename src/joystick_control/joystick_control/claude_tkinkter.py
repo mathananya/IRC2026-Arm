@@ -14,6 +14,7 @@ import tkinter as tk
 from tkinter import messagebox
 from typing import List, Tuple
 from poseToPWM import pose_to_encoder
+import os
 
 import rclpy
 from rclpy.node import Node
@@ -42,11 +43,26 @@ class IKPublisherNode(Node):
             encoder_values: List of encoder values to publish
         """
         msg = Int32MultiArray()
-        msg.data = [encoder_values[0], encoder_values[1], 0, 0, 0]
+        if(encoder_values[1] <= 230 or encoder_values[1] >= 610):
+            self.get_logger().info("Bhang bhosda value")
+            self.get_logger().info(f'Recieved encoder values: {encoder_values[1]}, {encoder_values[0]}')
+            # msg.data = [0, encoder_values[0],0,0,0]
+            # self.publisher.publish(msg)
+            # self.get_logger().info(f"Published vals : 0, {encoder_values[0]}")
+            
 
-        
-        self.publisher.publish(msg)
-        self.get_logger().info(f'Published encoder values: {encoder_values}')
+        elif(encoder_values[0] <= 55 or encoder_values[0] >= 520):
+            self.get_logger().info("Bhang bhosda value")
+            self.get_logger().info(f'Recieved encoder values: {encoder_values[1]}, {encoder_values[0]}')
+            # msg.data =  [encoder_values[1],0,0,0,0]
+            # self.publisher.publish(msg)
+            # self.get_logger().info(f"Published vals : {encoder_values[1]}, 0")
+
+
+        else:
+            msg.data = [encoder_values[1], encoder_values[0], 0, 0, 0]
+            self.publisher.publish(msg)
+            self.get_logger().info(f"Published vals : {encoder_values[1]}, {encoder_values[0]}")
 
 
 # =============================================================================
@@ -220,9 +236,9 @@ class IKGUIApplication:
         self.encoder_display.config(state=tk.NORMAL)
         self.encoder_display.delete(1.0, tk.END)
         
-        display_text = f"Encoder Values: {encoder_values}\n"
+        display_text = f"Encoder Values: {encoder_values[1]}, {encoder_values[0]}\n"
         display_text += f"Number of Joints: {len(encoder_values)}\n"
-        display_text += f"Values: {', '.join(map(str, encoder_values))}"
+        # display_text += f"Values: {', '.join(map(str, encoder_values))}"
         
         self.encoder_display.insert(1.0, display_text)
         self.encoder_display.config(state=tk.DISABLED)

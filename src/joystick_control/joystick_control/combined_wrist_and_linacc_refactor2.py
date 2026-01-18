@@ -19,12 +19,6 @@ class JoyStickNode(Node):
         # self.publisher_wrist = self.create_publisher(Int32MultiArray, "arm_wrist_commands", 10)
         self.pwmpub = self.create_publisher(Int32MultiArray, "arm_pwm_commands", 10)
 
-        # self.keyboardSpinner = threading.Thread(
-        #     target = self.keyboardCallback,
-        #     daemon = False
-        # )
-        
-        # self.keyboardSpinner.start()
         self.keyboardSpinnerTimer = self.create_timer(0.01, self.keyboardCallback)
 
 
@@ -59,98 +53,6 @@ class JoyStickNode(Node):
             self.publisher.publish(toPublish)
             self.get_logger().info(f"Published State : {toPublish.data}")
            
-
-        # x_flag = msg.buttons[5]
-        # y_flag = msg.buttons[3]
-        
-        # if x_flag == 1 and y_flag == 0 and self.last_pressed != 3:
-        #     self.last_pressed = 3
-        #     if msg.axes[1] != 0:
-        #         pwm_analog_value = msg.axes[1] / abs(msg.axes[1])
-        #     else:
-        #         pwm_analog_value = 0.0
-            
-        #     joystick_target = Int32MultiArray()
-        #     bicep_target = int(self.upperActuatorState - (pwm_analog_value * 16 * 2.5))
-        #     tricep_target = int(self.lowerActuatorState - (pwm_analog_value * 16 * 5.9))
-        #     joystick_target.data = [bicep_target, tricep_target, 0, 0, 0]
-        #     self.publisher.publish(joystick_target)
-        #     self.get_logger().info(f"X-axis movement: {joystick_target.data}")
-        #     return
-        
-        # if x_flag == 0 and y_flag == 1 and self.last_pressed != 4:
-        #     self.last_pressed = 4
-        #     if msg.axes[1] != 0:
-        #         pwm_analog_value = msg.axes[1] / abs(msg.axes[1])
-        #     else:
-        #         pwm_analog_value = 0.0
-            
-        #     joystick_target = Int32MultiArray()
-        #     bicep_target = int(self.upperActuatorState + (pwm_analog_value * 16 * 2.5))
-        #     tricep_target = int(self.lowerActuatorState + (pwm_analog_value * 16 * 5.9))
-        #     joystick_target.data = [bicep_target, tricep_target, 0, 0, 0]
-        #     self.publisher.publish(joystick_target)
-        #     self.get_logger().info(f"Y-axis movement: {joystick_target.data}")
-        #     return
-        
-        # if x_flag == 0 and y_flag == 0:
-        #     if self.last_pressed in [3, 4]:
-        #         self.last_pressed = 0
-        
-        # bicep_flag = msg.buttons[2]
-        # tricep_flag = msg.buttons[4]
-        
-        # if bicep_flag == 1 and tricep_flag == 0 and self.last_pressed != 1:
-        #     self.last_pressed = 1
-        #     if msg.axes[1] != 0:
-        #         pwm_analog_value = msg.axes[1] / abs(msg.axes[1])
-        #     else:
-        #         pwm_analog_value = 0.0
-            
-        #     joystick_target = Int32MultiArray()
-        #     bicep_target = int(self.upperActuatorState + (pwm_analog_value * 40))
-        #     joystick_target.data = [bicep_target, self.lowerActuatorState, 0, 0, 0]
-        #     self.publisher.publish(joystick_target)
-        #     self.get_logger().info(f"Bicep movement: {joystick_target.data}")
-        #     return
-        
-        # if bicep_flag == 0 and tricep_flag == 1 and self.last_pressed != 2:
-        #     self.last_pressed = 2
-        #     if msg.axes[1] != 0:
-        #         pwm_analog_value = msg.axes[1] / abs(msg.axes[1])
-        #     else:
-        #         pwm_analog_value = 0.0
-            
-        #     joystick_target = Int32MultiArray()
-        #     tricep_target = int(self.lowerActuatorState + (pwm_analog_value * 40))
-        #     joystick_target.data = [self.upperActuatorState, tricep_target, 0, 0, 0]
-        #     self.publisher.publish(joystick_target)
-        #     self.get_logger().info(f"Tricep movement: {joystick_target.data}")
-        #     return
-        
-        # if bicep_flag == 0 and tricep_flag == 0:
-        #     if self.last_pressed in [1, 2]:
-        #         self.last_pressed = 0
-        
-        # if msg.buttons[6] == 1:
-        #     pwm_publish_wrist = Int32MultiArray()
-            
-        #     wrist_data = msg.axes[-2:]
-        #     gripper_data = msg.axes[3]
-        #     gripper_pwm = int(gripper_data * 100)
-            
-        #     res = wrist_map(wrist_data)
-        #     if res is not None:
-        #         self.wrist_pwm_left, self.wrist_pwm_right = res[0], res[1]
-            
-        #     pwm_publish_wrist.data = [0, 0, self.wrist_pwm_left, self.wrist_pwm_right, gripper_pwm]
-        #     self.publisher_wrist.publish(pwm_publish_wrist)
-        #     self.get_logger().info(f"Wrist PWM: {pwm_publish_wrist.data}")
-
-
-    # def currStateProcess(self, msg):
-    #     self.upperActuatorState = msg.data[0]
-    #     self.lowerActuatorState = msg.data[1]
 
     def keyboardCallback(self):
         key = getch()

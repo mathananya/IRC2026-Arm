@@ -43,8 +43,12 @@ class PIDController:
         self.prev_error = self.error
         
         # print(f"Output: {self.output:.2f}")
-            
-            # print(f"P: {self.Kp * self.error:.2f}, I: {self.Ki * self.integral:.2f}, D: {self.Kd * self.derivative:.2f}")
+        if(self.flag == 0):
+            print("Upper PID VALS : ")
+            print(f"P: {self.Kp * self.error:.2f}, I: {self.Ki * self.integral:.2f}, D: {self.Kd * self.derivative:.2f}")
+        else:
+            print("LOWER PID VALS : ")
+            print(f"P: {self.Kp * self.error:.2f}, I: {self.Ki * self.integral:.2f}, D: {self.Kd * self.derivative:.2f}")
             
             # self.prev_error = self.error
         

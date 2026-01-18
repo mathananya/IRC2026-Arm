@@ -8,16 +8,20 @@ class ArmControllerIntegrated(Node):
     def __init__(self):
         super().__init__('arm_controller_integrated')
          
-        Kp = 15.0
-        Ki = 10.0
-        Kd = 0.02
+        Kp1 = 6.5
+        Ki1 = 0.01
+        Kd1 = 0.02
 
+
+        Kp2 = 5.0
+        Ki2 = 0.01
+        Kd2 = 0.02
         # Kp = 0.7
         # Ki = 0.01
         # Kd = 0.02
 
-        self.lower_pid = PIDController(Kp, Ki, Kd, integral_max=100, integral_min=-100, margin_of_error=20, flag = 1)
-        self.upper_pid = PIDController(Kp, Ki, Kd, integral_max=100, integral_min=-100, margin_of_error=20)
+        self.lower_pid = PIDController(Kp1, Ki1, Kd1, integral_max=100, integral_min=-100, margin_of_error=5, flag = 1)
+        self.upper_pid = PIDController(Kp2, Ki2, Kd2, integral_max=100, integral_min=-100, margin_of_error=5)
         
         
         self.encoder_subscriber = self.create_subscription(
@@ -44,7 +48,7 @@ class ArmControllerIntegrated(Node):
         self.stop_decision = True
         # self.limit_margin = 15
         self.PIDMargin = 5
-        self.PWMmax = 150
+        self.PWMmax = 250
         
         self.get_logger().info('Integrated Arm Controller Started')
 
@@ -58,14 +62,6 @@ class ArmControllerIntegrated(Node):
 
     
     def control_loop(self):
-
-        if((abs(self.current_states[0] - self.target_states[0]) < self.PIDMargin) and (abs(self.current_states[1] - self.target_states[1]) < self.PIDMargin)):
-            self.start_PID = False
-            self.upper_pid.updateError(0)
-            self.lower_pid.updateError(0)
-            self.upper_pid.updateIntegral(0)
-            self.lower_pid.updateIntegral(0)
-
 
         if self.start_PID == True:
             lower_current_value, upper_current_value = self.current_states
@@ -87,6 +83,8 @@ class ArmControllerIntegrated(Node):
         
             pwm_values = Int32MultiArray()
             pwm_values.data = [int(self.lower_pwm), int(self.upper_pwm), 0, 0, 0]
+            # pwm_values.data = [0, int(self.upper_pwm), 0, 0, 0]
+
         
             self.pwm_publisher.publish(pwm_values)
         
@@ -95,6 +93,14 @@ class ArmControllerIntegrated(Node):
                 f'Upper: {upper_current_value}->{upper_target_value} PWM:{self.upper_pwm}'
             )
 
+        if((abs(self.current_states[0] - self.target_states[0]) < self.PIDMargin) and (abs(self.current_states[1] - self.target_states[1]) < self.PIDMargin)):
+        # if(abs(self.current_states[1] - self.target_states[1]) < self.PIDMargin):
+            self.get_logger().info("BAND HO GAYA HAI")
+            self.start_PID = False
+            self.upper_pid.updateError(0)
+            self.lower_pid.updateError(0)
+            self.upper_pid.updateIntegral(0)
+            self.lower_pid.updateIntegral(0)
 
     def shutdown(self):
         self.get_logger().info("Shutting down Integrated Arm Controller...")
