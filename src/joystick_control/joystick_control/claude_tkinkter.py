@@ -14,7 +14,7 @@ import tkinter as tk
 from tkinter import messagebox
 from typing import List, Tuple
 from poseToPWM import pose_to_encoder
-import os
+
 
 import rclpy
 from rclpy.node import Node
