@@ -38,6 +38,10 @@ class JoyAxes(Node):
 
         if(self.buttons[0] != 1):
             pwmPubVal = mapJoyAxes(joyAx)
+            pwmMsg = Int32MultiArray()
+            pwmMsg.data = pwmPubVal
+            self.pwmpub.publish(pwmMsg)
+            self.get_logger().info(f"Published axes message : {pwmMsg.data}")
         else:
             initialx, initialz = encoder_to_pose(lower_encoder = lowerEnc, upper_encoder = upperEnc)
             finalx, finalz = 0, 0
@@ -55,13 +59,12 @@ class JoyAxes(Node):
                 finalz = initialz - X_Z_STEP
             
             finalUpperEnc, finalLowerEnc = pose_to_encoder(finalx, finalz)
-            pwmPubVal = [finalLowerEnc,finalUpperEnc,0,0,0]
+            targetState = [finalLowerEnc,finalUpperEnc,0,0,0]
+            targetMsg = Int32MultiArray()
+            targetMsg.data = targetState
+            self.publisher.publish(targetMsg)
+            self.get_logger().info(f"Published Target State : {targetMsg.data}")
 
-        pwmMsg = Int32MultiArray()
-        pwmMsg.data = pwmPubVal
-
-        self.pwmpub.publish(pwmMsg)
-        self.get_logger().info(f"Published axes message : {pwmMsg.data}")
 
 
         # joyArray = self.buttons[7:12]
