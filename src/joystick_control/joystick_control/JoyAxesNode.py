@@ -2,10 +2,10 @@ import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Joy
 from std_msgs.msg import Int32MultiArray
-from joymap import mapJoystickToAction, mapJoyAxes
+from joymap import mapJoyAxes
 from poseToPWM import pose_to_encoder, encoder_to_pose
 
-X_Z_STEP = 50
+X_Z_STEP = 10
 
 class JoyAxes(Node):
     def __init__(self):
@@ -64,17 +64,6 @@ class JoyAxes(Node):
             targetMsg.data = targetState
             self.publisher.publish(targetMsg)
             self.get_logger().info(f"Published Target State : {targetMsg.data}")
-
-
-
-        # joyArray = self.buttons[7:12]
-        
-        # trgtState = mapJoystickToAction(joyArray)
-        # if trgtState is not None:
-        #     toPublish = Int32MultiArray()
-        #     toPublish.data = trgtState
-        #     self.publisher.publish(toPublish)
-        #     self.get_logger().info(f"Published State : {toPublish.data}")
         
         
 

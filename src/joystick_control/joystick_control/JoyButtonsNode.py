@@ -2,7 +2,7 @@ import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Joy
 from std_msgs.msg import Int32MultiArray
-from joymap import mapJoystickToAction, mapJoyAxes
+from joymap import mapJoystickToAction
 
 class JOYButtons(Node):
     def __init__(self):
@@ -14,27 +14,6 @@ class JOYButtons(Node):
     def joycallback(self, msg):
 
         self.buttons = msg.buttons
-        # self.axes = msg.axes
-
-        # joyAx = []
-        # for val in self.axes:
-        #     if(abs(val) >= 0.5):
-        #         if(val > 0):
-        #             joyAx.append(1)
-        #         elif(val < 0):
-        #             joyAx.append(-1)
-        #     else:
-        #         joyAx.append(0)
-        
-
-        # pwmPubVal = mapJoyAxes(joyAx)
-
-        # pwmMsg = Int32MultiArray()
-        # pwmMsg.data = pwmPubVal
-
-        # self.pwmpub.publish(pwmMsg)
-        # self.get_logger().info(f"Published axes message : {pwmMsg.data}")
-
 
         joyArray = self.buttons[7:12]
         
