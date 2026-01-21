@@ -14,13 +14,12 @@ class JoyAxes(Node):
         self.encsub = self.create_subscription(Int32MultiArray, '/arm_encoder_data', self.encCallback, 10)
         self.publisher = self.create_publisher(Int32MultiArray, "arm_target_states", 10)
         self.pwmpub = self.create_publisher(Int32MultiArray, "arm_pwm_commands", 10)
+        self.lowerEnc = None
+        self.upperEnc = None
 
     def encCallback(self, msg):
-        global lowerEnc
-        global upperEnc
-        lowerEnc = msg.data[0]
-        upperEnc = msg.data[1]
-
+        self.lowerEnc = msg.data[0]
+        self.upperEnc = msg.data[1]
     def joycallback(self, msg):
 
         self.buttons = msg.buttons
@@ -43,7 +42,7 @@ class JoyAxes(Node):
             self.pwmpub.publish(pwmMsg)
             self.get_logger().info(f"Published axes message : {pwmMsg.data}")
         else:
-            initialx, initialz = encoder_to_pose(lower_encoder = lowerEnc, upper_encoder = upperEnc)
+            initialx, initialz = encoder_to_pose(lower_encoder = self.lowerEnc, upper_encoder = self.upperEnc)
             finalx, finalz = 0, 0
             if(joyAx[1] == 1):
                 finalx = initialx + X_Z_STEP
@@ -58,7 +57,7 @@ class JoyAxes(Node):
                 finalx = initialx
                 finalz = initialz - X_Z_STEP
             
-            finalUpperEnc, finalLowerEnc = pose_to_encoder(finalx, finalz)
+            finalUpperEnc, finalLowerEnc = pose_to_encoder(x = finalx, z = finalz)
             targetState = [finalLowerEnc,finalUpperEnc,0,0,0]
             targetMsg = Int32MultiArray()
             targetMsg.data = targetState
