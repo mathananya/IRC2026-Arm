@@ -55,7 +55,7 @@ class JoyAxes(Node):
                 finalz = initialz - X_Z_STEP
             
             finalUpperEnc, finalLowerEnc = pose_to_encoder(finalx, finalz)
-            pwmPubVal = [finalUpperEnc, finalLowerEnc,0,0,0]
+            pwmPubVal = [finalLowerEnc,finalUpperEnc,0,0,0]
 
         pwmMsg = Int32MultiArray()
         pwmMsg.data = pwmPubVal
