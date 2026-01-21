@@ -141,7 +141,7 @@ class IKGUIApplication:
             text="Compute IK & Publish",
             command=self._on_compute_clicked,
             font=("Arial", 11, "bold"),
-            bg="#4CAF50",
+            bg="#0000EC",
             fg="white",
             padx=20,
             pady=10,
