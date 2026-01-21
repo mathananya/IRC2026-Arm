@@ -39,7 +39,8 @@ class ArmControllerIntegrated(Node):
         self.target_states = [0.0, 0.0]
         self.lower_pwm = 0
         self.upper_pwm = 0
-        self.start_PID = False
+        self.start_PID1 = False
+        self.start_PID2 = False 
         
         self.wrist_pwm = [0, 0, 0]
         
@@ -58,17 +59,34 @@ class ArmControllerIntegrated(Node):
     def target_callback(self, msg):
         self.target_states = msg.data[:2]
         self.get_logger().info(f'Target received: {self.target_states}')
-        self.start_PID = True
+        self.start_PID1 = True
+        self.start_PID2 = True
 
     
     def control_loop(self):
 
-        if self.start_PID == True:
+        if self.start_PID1 == True or self.start_PID2 == True:
+
+            if((abs(self.current_states[0] - self.target_states[0]) < self.PIDMargin)):
+                self.get_logger().info("Lower one switched off!")
+                self.start_PID1 = False
+
+            if((abs(self.current_states[1] - self.target_states[1]) < self.PIDMargin)):
+                self.get_logger().info("Upper one switched off!")
+                self.start_PID2 = False
+
             lower_current_value, upper_current_value = self.current_states
             lower_target_value, upper_target_value = self.target_states
-        
-            self.lower_pwm = self.lower_pid.update(lower_current_value, lower_target_value)
-            self.upper_pwm = self.upper_pid.update(upper_current_value, upper_target_value)
+
+            if(self.start_PID1==False):
+                self.lower_pwm = 0
+            else:
+                self.lower_pwm = self.lower_pid.update(lower_current_value, lower_target_value)
+
+            if(self.start_PID2==False):
+                self.upper_pwm = 0
+            else:
+                self.upper_pwm = self.upper_pid.update(upper_current_value, upper_target_value)
 
             if(abs(self.upper_pwm) > self.PWMmax):
                 if(self.upper_pwm > 0):
@@ -80,12 +98,11 @@ class ArmControllerIntegrated(Node):
                     self.lower_pwm = self.PWMmax
                 else:
                     self.lower_pwm = -self.PWMmax
+
         
             pwm_values = Int32MultiArray()
             pwm_values.data = [int(self.lower_pwm), int(self.upper_pwm), 0, 0, 0]
-            # pwm_values.data = [0, int(self.upper_pwm), 0, 0, 0]
 
-        
             self.pwm_publisher.publish(pwm_values)
         
             self.get_logger().info(
@@ -93,14 +110,12 @@ class ArmControllerIntegrated(Node):
                 f'Upper: {upper_current_value}->{upper_target_value} PWM:{self.upper_pwm}'
             )
 
-        if((abs(self.current_states[0] - self.target_states[0]) < self.PIDMargin) and (abs(self.current_states[1] - self.target_states[1]) < self.PIDMargin)):
-        # if(abs(self.current_states[1] - self.target_states[1]) < self.PIDMargin):
-            self.get_logger().info("BAND HO GAYA HAI")
-            self.start_PID = False
-            self.upper_pid.updateError(0)
+        if(self.start_PID1 == False):
             self.lower_pid.updateError(0)
-            self.upper_pid.updateIntegral(0)
             self.lower_pid.updateIntegral(0)
+        if(self.start_PID2 == False):
+            self.upper_pid.updateError(0)
+            self.upper_pid.updateIntegral(0)
 
     def shutdown(self):
         self.get_logger().info("Shutting down Integrated Arm Controller...")
