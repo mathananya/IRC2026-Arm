@@ -70,10 +70,14 @@ class ArmControllerIntegrated(Node):
             if((abs(self.current_states[0] - self.target_states[0]) < self.PIDMargin)):
                 self.get_logger().info("Lower one switched off!")
                 self.start_PID1 = False
+                self.lower_pid.updateError(0)
+                self.lower_pid.updateIntegral(0)
 
             if((abs(self.current_states[1] - self.target_states[1]) < self.PIDMargin)):
                 self.get_logger().info("Upper one switched off!")
                 self.start_PID2 = False
+                self.upper_pid.updateError(0)
+                self.upper_pid.updateIntegral(0)
 
             lower_current_value, upper_current_value = self.current_states
             lower_target_value, upper_target_value = self.target_states
@@ -110,12 +114,6 @@ class ArmControllerIntegrated(Node):
                 f'Upper: {upper_current_value}->{upper_target_value} PWM:{self.upper_pwm}'
             )
 
-        if(self.start_PID1 == False):
-            self.lower_pid.updateError(0)
-            self.lower_pid.updateIntegral(0)
-        if(self.start_PID2 == False):
-            self.upper_pid.updateError(0)
-            self.upper_pid.updateIntegral(0)
 
     def shutdown(self):
         self.get_logger().info("Shutting down Integrated Arm Controller...")
