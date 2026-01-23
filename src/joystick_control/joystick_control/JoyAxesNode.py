@@ -35,34 +35,34 @@ class JoyAxes(Node):
             else:
                 joyAx.append(0)
 
-        if(self.buttons[0] != 1):
+        if(joyAx != [0,0,0,0,0]):
             pwmPubVal = mapJoyAxes(joyAx)
             pwmMsg = Int32MultiArray()
             pwmMsg.data = pwmPubVal
             self.pwmpub.publish(pwmMsg)
             self.get_logger().info(f"Published axes message : {pwmMsg.data}")
-        else:
-            initialx, initialz = encoder_to_pose(lower_encoder = self.lowerEnc, upper_encoder = self.upperEnc)
-            finalx, finalz = 0, 0
-            if(joyAx[1] == 1):
-                finalx = initialx + X_Z_STEP
-                finalz = initialz
-            elif(joyAx[1] == -1):
-                finalx = initialx - X_Z_STEP
-                finalz = initialz
-            elif(joyAx[0] == 1):
-                finalx = initialx
-                finalz = initialz + X_Z_STEP
-            elif(joyAx[0] == -1):
-                finalx = initialx
-                finalz = initialz - X_Z_STEP
+
+        initialx, initialz = encoder_to_pose(lower_encoder = self.lowerEnc, upper_encoder = self.upperEnc)
+        finalx, finalz = 0, 0
+        if(self.buttons[4] == 1):
+            finalx = initialx + X_Z_STEP
+            finalz = initialz
+        elif(self.buttons[2] == 1):
+            finalx = initialx - X_Z_STEP
+            finalz = initialz
+        elif(self.buttons[5] == 1):
+            finalx = initialx
+            finalz = initialz + X_Z_STEP
+        elif(self.buttons[3] == 1):
+            finalx = initialx
+            finalz = initialz - X_Z_STEP
             
-            finalUpperEnc, finalLowerEnc = pose_to_encoder(x = finalx, z = finalz)
-            targetState = [finalLowerEnc,finalUpperEnc,0,0,0]
-            targetMsg = Int32MultiArray()
-            targetMsg.data = targetState
-            self.publisher.publish(targetMsg)
-            self.get_logger().info(f"Published Target State : {targetMsg.data}")
+        finalUpperEnc, finalLowerEnc = pose_to_encoder(x = finalx, z = finalz)
+        targetState = [finalLowerEnc,finalUpperEnc,0,0,0]
+        targetMsg = Int32MultiArray()
+        targetMsg.data = targetState
+        self.publisher.publish(targetMsg)
+        self.get_logger().info(f"Published Target State : {targetMsg.data}")
         
         
 
