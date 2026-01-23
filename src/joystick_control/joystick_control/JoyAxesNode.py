@@ -41,8 +41,8 @@ class JoyAxes(Node):
             pwmMsg.data = pwmPubVal
             self.pwmpub.publish(pwmMsg)
             self.get_logger().info(f"Published axes message : {pwmMsg.data}")
-
-        initialx, initialz = encoder_to_pose(lower_encoder = self.lowerEnc, upper_encoder = self.upperEnc)
+        if(self.lowerEnc is not None and self.upperEnc is not None):
+            initialx, initialz = encoder_to_pose(lower_encoder = self.lowerEnc, upper_encoder = self.upperEnc)
         finalx, finalz = None, None
         if(self.buttons[4] == 1):
             finalx = initialx + X_Z_STEP
