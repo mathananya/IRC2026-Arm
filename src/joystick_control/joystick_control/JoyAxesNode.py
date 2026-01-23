@@ -6,6 +6,7 @@ from joymap import mapJoyAxes
 from poseToPWM import pose_to_encoder, encoder_to_pose
 
 X_Z_STEP = 100
+GRIPPER_STEP = 50
 
 class JoyAxes(Node):
     def __init__(self):
@@ -34,6 +35,20 @@ class JoyAxes(Node):
                     joyAx.append(-1)
             else:
                 joyAx.append(0)
+        
+        if(joyAx[3] == 1):
+            pwmPubVal = [0,0,0,0,GRIPPER_STEP]
+            pwmMsg = Int32MultiArray()
+            pwmMsg.data = pwmPubVal
+            self.pwmpub.publish(pwmMsg)
+            self.get_logger().info(f"Gripper moving by {GRIPPER_STEP} positive!")
+        elif(joyAx[3] == -1):
+            pwmPubVal = [0,0,0,0,-GRIPPER_STEP]
+            pwmMsg = Int32MultiArray()
+            pwmMsg.data = pwmPubVal
+            self.pwmpub.publish(pwmMsg)
+            self.get_logger().info(f"Gripper moving by {GRIPPER_STEP} negative!")
+        
 
         if(joyAx != [0,0,0,1,0,0] and joyAx!=[0,0,0,-1,0,0] and joyAx!=[0,0,0,0,0,0]):
             pwmPubVal = mapJoyAxes(joyAx)
