@@ -5,7 +5,7 @@ from std_msgs.msg import Int32MultiArray
 from joymap import mapJoyAxes
 from poseToPWM import pose_to_encoder, encoder_to_pose
 
-X_Z_STEP = 10
+X_Z_STEP = 100
 
 class JoyAxes(Node):
     def __init__(self):
@@ -35,7 +35,7 @@ class JoyAxes(Node):
             else:
                 joyAx.append(0)
 
-        if(joyAx != [0,0,0,0,0]):
+        if(joyAx != [0,0,0,1,0,0] and joyAx!=[0,0,0,-1,0,0] and joyAx!=[0,0,0,0,0,0]):
             pwmPubVal = mapJoyAxes(joyAx)
             pwmMsg = Int32MultiArray()
             pwmMsg.data = pwmPubVal
@@ -43,7 +43,7 @@ class JoyAxes(Node):
             self.get_logger().info(f"Published axes message : {pwmMsg.data}")
 
         initialx, initialz = encoder_to_pose(lower_encoder = self.lowerEnc, upper_encoder = self.upperEnc)
-        finalx, finalz = 0, 0
+        finalx, finalz = None, None
         if(self.buttons[4] == 1):
             finalx = initialx + X_Z_STEP
             finalz = initialz
@@ -56,13 +56,13 @@ class JoyAxes(Node):
         elif(self.buttons[3] == 1):
             finalx = initialx
             finalz = initialz - X_Z_STEP
-            
-        finalUpperEnc, finalLowerEnc = pose_to_encoder(x = finalx, z = finalz)
-        targetState = [finalLowerEnc,finalUpperEnc,0,0,0]
-        targetMsg = Int32MultiArray()
-        targetMsg.data = targetState
-        self.publisher.publish(targetMsg)
-        self.get_logger().info(f"Published Target State : {targetMsg.data}")
+        if(finalx is not None and finalz is not None):    
+            finalUpperEnc, finalLowerEnc = pose_to_encoder(x = finalx, z = finalz)
+            targetState = [finalLowerEnc,finalUpperEnc,0,0,0]
+            targetMsg = Int32MultiArray()
+            targetMsg.data = targetState
+            self.publisher.publish(targetMsg)
+            self.get_logger().info(f"Published Target State : {targetMsg.data}")
         
         
 
