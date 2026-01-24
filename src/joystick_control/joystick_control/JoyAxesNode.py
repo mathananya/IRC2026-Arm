@@ -6,7 +6,8 @@ from joymap import mapJoyAxes
 from poseToPWM import pose_to_encoder, encoder_to_pose
 
 X_Z_STEP = 100
-GRIPPER_STEP = 50
+GRIPPER_STEP = 200
+WRIST_STEP = 50
 
 class JoyAxes(Node):
     def __init__(self):
@@ -36,21 +37,76 @@ class JoyAxes(Node):
             else:
                 joyAx.append(0)
         
-        if(joyAx[3] == 1):
-            pwmPubVal = [0,0,0,0,GRIPPER_STEP]
-            pwmMsg = Int32MultiArray()
-            pwmMsg.data = pwmPubVal
-            self.pwmpub.publish(pwmMsg)
-            self.get_logger().info(f"Gripper moving by {GRIPPER_STEP} positive!")
-        elif(joyAx[3] == -1):
-            pwmPubVal = [0,0,0,0,-GRIPPER_STEP]
-            pwmMsg = Int32MultiArray()
-            pwmMsg.data = pwmPubVal
-            self.pwmpub.publish(pwmMsg)
-            self.get_logger().info(f"Gripper moving by {GRIPPER_STEP} negative!")
+        # if(joyAx[3] == 1):
+        #     pwmPubVal = [0,0,0,0,GRIPPER_STEP]
+        #     pwmMsg = Int32MultiArray()
+        #     pwmMsg.data = pwmPubVal
+        #     self.pwmpub.publish(pwmMsg)
+        #     self.get_logger().info(f"Gripper moving by {GRIPPER_STEP} positive!")
+        # elif(joyAx[3] == -1):
+        #     pwmPubVal = [0,0,0,0,-GRIPPER_STEP]
+        #     pwmMsg = Int32MultiArray()
+        #     pwmMsg.data = pwmPubVal
+        #     self.pwmpub.publish(pwmMsg)
+        #     self.get_logger().info(f"Gripper moving by {GRIPPER_STEP} negative!")
         
-
-        if(joyAx != [0,0,0,1,0,0] and joyAx!=[0,0,0,-1,0,0] and joyAx!=[0,0,0,0,0,0]):
+        if(joyAx[3] == 1):
+            if(joyAx[5] == 1):
+                if(self.buttons[0] == 1):
+                    pwmPubVal = [0,0,0,0,0]
+                else:
+                    pwmPubVal = [0,0,WRIST_STEP,WRIST_STEP,0]
+                    self.get_logger().info(f"Wrist moving same direction by {WRIST_STEP} positive")
+                pwmMsg = Int32MultiArray()
+                pwmMsg.data = pwmPubVal
+                self.pwmpub.publish(pwmMsg)
+                
+            elif(joyAx[5] == -1):
+                if(self.buttons[0] == 1):
+                    pwmPubVal = [0,0,0,0,0]
+                else:
+                    pwmPubVal = [0,0,-WRIST_STEP,-WRIST_STEP,0]
+                    self.get_logger().info(f"Wrist moving same direction by {WRIST_STEP} negative")
+                pwmMsg = Int32MultiArray()
+                pwmMsg.data = pwmPubVal
+                self.pwmpub.publish(pwmMsg)
+            elif(joyAx[4] == 1):
+                if(self.buttons[0] == 1):
+                    pwmPubVal = [0,0,0,0,0]
+                else:
+                    pwmPubVal = [0,0,WRIST_STEP,-WRIST_STEP,0]
+                    self.get_logger().info(f"Wrist moving opposite direction by {WRIST_STEP} positive")
+                pwmMsg = Int32MultiArray()
+                pwmMsg.data = pwmPubVal
+                self.pwmpub.publish(pwmMsg)
+            elif(joyAx[4] == -1):
+                if(self.buttons[0] == -1):
+                    pwmPubVal = [0,0,0,0,0]
+                else:
+                    pwmPubVal = [0,0,-WRIST_STEP,WRIST_STEP,0]
+                    self.get_logger().info(f"Wrist moving opposite direction by {WRIST_STEP} negative")
+                pwmMsg = Int32MultiArray()
+                pwmMsg.data = pwmPubVal
+                self.pwmpub.publish(pwmMsg)
+            elif(joyAx[1] == 1):
+                if(self.buttons[0] == 1):
+                    pwmPubVal = [0,0,0,0,0]
+                else:
+                    pwmPubVal = [0,0,0,0,GRIPPER_STEP]
+                pwmMsg = Int32MultiArray()
+                pwmMsg.data = pwmPubVal
+                self.pwmpub.publish(pwmMsg)
+                self.get_logger().info(f"Gripper moving forward by {GRIPPER_STEP}")
+            elif(joyAx[1] == -1):
+                if(self.buttons[0] == 1):
+                    pwmPubVal = [0,0,0,0,0]
+                else:
+                    pwmPubVal = [0,0,0,0,-GRIPPER_STEP]
+                pwmMsg = Int32MultiArray()
+                pwmMsg.data = pwmPubVal
+                self.pwmpub.publish(pwmMsg)
+                self.get_logger().info(f"Gripper moving by {GRIPPER_STEP} negative")
+        if(joyAx[3] == -1):
             pwmPubVal = mapJoyAxes(joyAx)
             pwmMsg = Int32MultiArray()
             pwmMsg.data = pwmPubVal

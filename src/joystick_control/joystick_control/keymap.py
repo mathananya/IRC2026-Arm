@@ -1,5 +1,5 @@
 def keytoState(key):
-    VAL = 100
+    VAL = 150
 
     darray = [0, 0, 0, 0, 0]
     m = {
