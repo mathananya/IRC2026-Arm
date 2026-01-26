@@ -81,7 +81,7 @@ class JoyAxes(Node):
                 pwmMsg.data = pwmPubVal
                 self.pwmpub.publish(pwmMsg)
             elif(joyAx[4] == -1):
-                if(self.buttons[0] == -1):
+                if(self.buttons[0] == 1):
                     pwmPubVal = [0,0,0,0,0]
                 else:
                     pwmPubVal = [0,0,-WRIST_STEP,WRIST_STEP,0]
