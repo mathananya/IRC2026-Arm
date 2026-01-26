@@ -172,9 +172,7 @@ void setup() {
   set_microros_transports();
   Serial.begin(115200);
   // Setup arm encoders
-  attachInterrupt(WRIST1_ENCA, readEncoderArm1, CHANGE);
-  attachInterrupt(WRIST2_ENCA, readEncoderArm2, CHANGE);
-  attachInterrupt(GRIPPY_ENCA, readEncoderArm3, CHANGE);
+ 
 
   delay(2000);
   allocator = rcl_get_default_allocator();
@@ -249,7 +247,7 @@ void loop() {
 
   //<----------------- ARM TEST --------------->
 
-  if (current_time - last_message_time_arm > 2000) {
+  if (current_time - last_message_time_arm > 1000) {
     //only running loop till 4 beacuse gripper has no feedback as of now
     for (int i = 0; i < 5; i++) {
       arm_pwm_values[i] = 0;
@@ -331,74 +329,74 @@ void loop() {
 }
 
 
-void readEncoderArm1() {
-  static int lastENCA = LOW;
-  int currentENCA = digitalRead(WRIST1_ENCA);
-  int currentENCB = digitalRead(WRIST1_ENCB);
+// void readEncoderArm1() {
+//   static int lastENCA = LOW;
+//   int currentENCA = digitalRead(WRIST1_ENCA);
+//   int currentENCB = digitalRead(WRIST1_ENCB);
 
-  // Determine direction based on ENCA and ENCB
-  if (currentENCA != lastENCA) {
-    if (currentENCA == HIGH) {
-      if (currentENCB == LOW) {
-        arm_posi[0]++;
-      } else {
-        arm_posi[0]--;
-      }
-    } else {
-      if (currentENCB == LOW) {
-        arm_posi[0]--;
-      } else {
-        arm_posi[0]++;
-      }
-    }
-    lastENCA = currentENCA;
-  }
-}
+//   // Determine direction based on ENCA and ENCB
+//   if (currentENCA != lastENCA) {
+//     if (currentENCA == HIGH) {
+//       if (currentENCB == LOW) {
+//         arm_posi[0]++;
+//       } else {
+//         arm_posi[0]--;
+//       }
+//     } else {
+//       if (currentENCB == LOW) {
+//         arm_posi[0]--;
+//       } else {
+//         arm_posi[0]++;
+//       }
+//     }
+//     lastENCA = currentENCA;
+//   }
+// }
 
-void readEncoderArm2() {
-  static int lastENCA = LOW;
-  int currentENCA = digitalRead(WRIST2_ENCA);
-  int currentENCB = digitalRead(WRIST2_ENCB);
+// void readEncoderArm2() {
+//   static int lastENCA = LOW;
+//   int currentENCA = digitalRead(WRIST2_ENCA);
+//   int currentENCB = digitalRead(WRIST2_ENCB);
 
-  // Determine direction based on ENCA and ENCB
-  if (currentENCA != lastENCA) {
-    if (currentENCA == HIGH) {
-      if (currentENCB == LOW) {
-        arm_posi[1]++;
-      } else {
-        arm_posi[1]--;
-      }
-    } else {
-      if (currentENCB == LOW) {
-        arm_posi[1]--;
-      } else {
-        arm_posi[1]++;
-      }
-    }
-    lastENCA = currentENCA;
-  }
-}
+//   // Determine direction based on ENCA and ENCB
+//   if (currentENCA != lastENCA) {
+//     if (currentENCA == HIGH) {
+//       if (currentENCB == LOW) {
+//         arm_posi[1]++;
+//       } else {
+//         arm_posi[1]--;
+//       }
+//     } else {
+//       if (currentENCB == LOW) {
+//         arm_posi[1]--;
+//       } else {
+//         arm_posi[1]++;
+//       }
+//     }
+//     lastENCA = currentENCA;
+//   }
+// }
 
-void readEncoderArm3() {
-  static int lastENCA = LOW;
-  int currentENCA = digitalRead(GRIPPY_ENCA);
-  int currentENCB = digitalRead(GRIPPY_ENCB);
+// void readEncoderArm3() {
+//   static int lastENCA = LOW;
+//   int currentENCA = digitalRead(GRIPPY_ENCA);
+//   int currentENCB = digitalRead(GRIPPY_ENCB);
 
-  // Determine direction based on ENCA and ENCB
-  if (currentENCA != lastENCA) {
-    if (currentENCA == HIGH) {
-      if (currentENCB == LOW) {
-        arm_posi[2]++;
-      } else {
-        arm_posi[2]--;
-      }
-    } else {
-      if (currentENCB == LOW) {
-        arm_posi[2]--;
-      } else {
-        arm_posi[2]++;
-      }
-    }
-    lastENCA = currentENCA;
-  }
-}
+//   // Determine direction based on ENCA and ENCB
+//   if (currentENCA != lastENCA) {
+//     if (currentENCA == HIGH) {
+//       if (currentENCB == LOW) {
+//         arm_posi[2]++;
+//       } else {
+//         arm_posi[2]--;
+//       }
+//     } else {
+//       if (currentENCB == LOW) {
+//         arm_posi[2]--;
+//       } else {
+//         arm_posi[2]++;
+//       }
+//     }
+//     lastENCA = currentENCA;
+//   }
+// }
