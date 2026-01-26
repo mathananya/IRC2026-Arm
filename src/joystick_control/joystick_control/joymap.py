@@ -25,7 +25,7 @@ def mapJoystickToAction(joyArray):
 
 def mapJoyAxes(joyAxes):
     pwm_val = [0,0,0,0,0]
-    VAL = 150
+    VAL = 200
     if(joyAxes[1] == 1):
         pwm_val[0] -= VAL 
     elif(joyAxes[1] == -1):

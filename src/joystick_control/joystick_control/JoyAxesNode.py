@@ -96,7 +96,7 @@ class JoyAxes(Node):
                 pwmMsg = Int32MultiArray()
                 pwmMsg.data = pwmPubVal
                 self.pwmpub.publish(pwmMsg)
-                self.get_logger().info(f"Gripper moving forward by {GRIPPER_STEP}")
+                self.get_logger().info(f"Gripper moving +{GRIPPER_STEP}")
             elif(joyAx[1] == -1):
                 if(self.buttons[0] == 1):
                     pwmPubVal = [0,0,0,0,0]
@@ -105,13 +105,14 @@ class JoyAxes(Node):
                 pwmMsg = Int32MultiArray()
                 pwmMsg.data = pwmPubVal
                 self.pwmpub.publish(pwmMsg)
-                self.get_logger().info(f"Gripper moving by {GRIPPER_STEP} negative")
+                self.get_logger().info(f"Gripper moving by -{GRIPPER_STEP}")
         if(joyAx[3] == -1):
             pwmPubVal = mapJoyAxes(joyAx)
-            pwmMsg = Int32MultiArray()
-            pwmMsg.data = pwmPubVal
-            self.pwmpub.publish(pwmMsg)
-            self.get_logger().info(f"Published axes message : {pwmMsg.data}")
+            if(not (pwmPubVal) == [0,0,0,0,0]):
+                pwmMsg = Int32MultiArray()
+                pwmMsg.data = pwmPubVal
+                self.pwmpub.publish(pwmMsg)
+                self.get_logger().info(f"Published axes message : {pwmMsg.data}")
         if(self.lowerEnc is not None and self.upperEnc is not None):
             initialx, initialz = encoder_to_pose(lower_encoder = self.lowerEnc, upper_encoder = self.upperEnc)
         finalx, finalz = None, None
