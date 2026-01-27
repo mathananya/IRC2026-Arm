@@ -22,7 +22,7 @@ MDD10A::~MDD10A() {
 void MDD10A::run(int pwr) {
   int dir = (pwr > 0) ? 1 : 0; // Setting to HIGH when pwr is +ve, setting to LOW when pwr is 0 / -ve
   int u = min(abs(pwr), 255);
-
+  
   analogWrite(_pwm_pin, u);
   digitalWrite(_dir_pin, dir);
 }

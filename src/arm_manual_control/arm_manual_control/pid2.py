@@ -1,14 +1,13 @@
 import time
 
 class PIDController:
-    def __init__(self, Kp, Ki, Kd, integral_max=100, integral_min=-100, margin_of_error=50, flag=0):
+    def __init__(self, Kp, Ki, Kd, integral_max=100, margin_of_error=50, flag=0):
         self.Kp = Kp
         self.Ki = Ki
         self.Kd = Kd
         self.prev_error = 0
         self.integral = 0
         self.integral_max = integral_max
-        self.integral_min = integral_min
         self.last_timestamp = time.time()
         self.margin_of_error = margin_of_error
         self.flag = flag
