@@ -23,8 +23,8 @@
 
 #define M3_PWM 25
 #define M3_DIR 26
-#define ENC3_A 5
-#define ENC3_B 18
+#define ENC3_A 18
+#define ENC3_B 5
 
 #define M4_PWM 27
 #define M4_DIR 14
@@ -36,9 +36,9 @@ const float ENC_PPR = 1410.0;
 const int32_t ENCODER_LIMIT = 1410*10000; 
 
 // PID Constants
-float Kp = 20.0;
+float Kp = 75.0;
 float Ki = 0.00;
-float Kd = 0.00;
+float Kd = 0.03;
 
 // Raw PWM Constant
 // Multiplier to convert target_v (m/s) to PWM. 
@@ -269,8 +269,8 @@ void loop() {
     double e3 = target_v3 - v3;
     ie3 += e3 * dt; ie3 = constrain(ie3, -20, 20);
     out3 += (Kp * e3) + (Ki * ie3) + (Kd * (e3 - pe3) / dt);
-    // motor3.run(-(int)out3); pe3 = e3;
-    motor3.run(-(int)(target_v3 * PWM_GAIN));
+     motor3.run((int)out3); pe3 = e3;
+   
 
     // Motor 4
     double v4 = ((double)c4 / dt / ENC_PPR) * (2.0 * PI * WHEEL_RADIUS);
@@ -285,7 +285,7 @@ void loop() {
     
     motor1.run((int)(target_v1 * PWM_GAIN));
     motor2.run(-(int)(target_v2 * PWM_GAIN));
-    motor3.run(-(int)(target_v3 * PWM_GAIN));
+    motor3.run((int)(target_v3 * PWM_GAIN));
     motor4.run(-(int)(target_v4 * PWM_GAIN));
     
     // We do NOT update 'pe' (prev error) or 'ie' (integral error) here
