@@ -109,12 +109,12 @@ class JoyAxes(Node):
                 self.get_logger().info(f"Gripper moving by -{GRIPPER_STEP}")
         if(joyAx[3] == -1):
             pwmPubVal = mapJoyAxes(joyAx)
-            if(not(pwmPubVal == [0,0,0,0,0] and self.prevPWMVal == [0,0,0,0,0])):
-                pwmMsg = Int32MultiArray()
-                pwmMsg.data = pwmPubVal
-                self.pwmpub.publish(pwmMsg)
-                self.get_logger().info(f"Published axes message : {pwmMsg.data}")
-            self.prevPWMVal = pwmPubVal
+           # if(not(pwmPubVal == [0,0,0,0,0] and self.prevPWMVal == [0,0,0,0,0])):
+            pwmMsg = Int32MultiArray()
+            pwmMsg.data = pwmPubVal
+            self.pwmpub.publish(pwmMsg)
+            self.get_logger().info(f"Published axes message : {pwmMsg.data}")
+       # self.prevPWMVal = pwmPubVal
         if(self.lowerEnc is not None and self.upperEnc is not None):
             initialx, initialz = encoder_to_pose(lower_encoder = self.lowerEnc, upper_encoder = self.upperEnc)
         finalx, finalz = None, None

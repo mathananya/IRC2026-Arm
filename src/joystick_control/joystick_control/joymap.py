@@ -2,10 +2,10 @@
 #Choose to hardcode in terms of Encoder values as done here.
 
 DROP_STATE = [820, 315,0,0,0]
-HOME_STATE = [222,523,0, 0, 0]
-NINETY_DEGREE_STATE = [419,55,0,0,0]
+HOME_STATE = [415,885,0, 0, 0]
+NINETY_DEGREE_STATE = [644,153,0,0,0]
 # NINETY_DEGREE_STATE = [544,303, 0, 0, 0]
-
+VIEW_STATE = [440,580,0,0,0]
 PICK_STATE = [590,380,0,0,0]
 ARM_EXTEND = [850,410,0,0,0]
 
@@ -15,8 +15,8 @@ def mapJoystickToAction(joyArray):
         (0,0,1,0,0) : DROP_STATE,
         (0,1,0,0,0) : NINETY_DEGREE_STATE,
         (1,0,0,0,0) : HOME_STATE,
-        (0,0,0,1,0) : PICK_STATE,
-        (0,0,0,0,1) : ARM_EXTEND
+        (0,0,0,1,0) : VIEW_STATE,
+        (0,0,0,0,1) : PICK_STATE
     }
     if tuple(joyArray) in JoyMap:
         target_state =  JoyMap.get(tuple(joyArray))
