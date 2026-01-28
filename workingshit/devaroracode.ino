@@ -257,14 +257,14 @@ void loop() {
   if (command_active) {
     unsigned long time_elapsed = millis() - command_start_time;
 
-    // CASE A: TIMEOUT -> FAILED
+    //
     if (time_elapsed > SAFETY_TIMEOUT) {
-       // Force Home & Reset
+       
        digitalWrite(PIN_SEND_VP, HIGH);
        digitalWrite(PIN_SEND_VN, HIGH);
        command_active = false; 
        
-       // Trigger "Failed" State
+       
        last_result = RESULT_TIMEOUT;
        result_start_time = millis();
     }
@@ -276,7 +276,7 @@ void loop() {
         digitalWrite(PIN_SEND_VN, LOW);
         command_active = false; 
         
-        // Trigger "Done" State
+      
         last_result = RESULT_SUCCESS;
         result_start_time = millis();
       }

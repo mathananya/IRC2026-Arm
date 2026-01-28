@@ -12,8 +12,8 @@ const int limitSwitchPin[4] = { 13, 12, 35, 34 };
 bool stopped[4] = { false, false, false, false };
 const int pwm[4] = { 5, 17, 16, 22 };
 const int dir[4] = { 15, 21, 4, 23 };
-const int ENC_A[4] = { 26, 14, 19, 33 };
-const int ENC_B[4] = { 25, 27, 18, 32 };
+const int ENC_A[4] = { 25, 27, 19, 33 };
+const int ENC_B[4] = { 26, 14, 18, 32 };
 int target_angle[4] = { 0, 0, 0, 0 };
 unsigned long time_in_cycle[4] = { 0, 0, 0, 0 };
 int16_t count[4] = { 0, 0, 0, 0 };
@@ -63,7 +63,7 @@ void gohome() {
   while (true) {
     for (int i = 0; i < 4; i++) {
       if (digitalRead(limitSwitchPin[i]) == HIGH) { 
-        delay(30);
+      
         if (digitalRead(limitSwitchPin[i]) == HIGH) {  // debounce
           //Serial.printf("%d Motor reached home\n", i);
           pcnt_counter_clear(pcnt_array[i]);
@@ -71,9 +71,9 @@ void gohome() {
           stopped[i] = true;
         }
       }
-      else {
+      else if(stopped[i] == false) {
         digitalWrite(feedback_pin, HIGH);
-        if (i == 3 || i == 0)   {
+        if (i == 3 || i == 1)   {
           setMotor(MOTOR_SPEED, true, pwm[i], dir[i]);
         } else {
           setMotor(MOTOR_SPEED, false, pwm[i], dir[i]);
@@ -138,14 +138,14 @@ void loop() {
   }
     switch (mode) {
     case 1:
-      target_angle[0] = -45;
-      target_angle[1] = 45;
-      target_angle[2] = 45;
-      target_angle[3] = -45;
+      target_angle[0] = 60;
+      target_angle[1] = -60;
+      target_angle[2] = 60;
+      target_angle[3] = -60;
       break;
     case 2:
-      target_angle[0] = -90;
-      target_angle[1] = 90;
+      target_angle[0] = 90;
+      target_angle[1] = -90;
       target_angle[2] = 90;
       target_angle[3] = -90;
       break;
@@ -163,7 +163,7 @@ void loop() {
 
     if (abs(error[i]) <= TOLERANCE) {
       // Close enough -> STOP
-      digitalWrite(feedback_pin, LOW);
+     
       setMotor(0, true, pwm[i], dir[i]);
     } else if (error[i] > 0) {
       digitalWrite(feedback_pin, HIGH);
@@ -174,6 +174,7 @@ void loop() {
       // Target is behind -> Backward
       setMotor(MOTOR_SPEED, false, pwm[i], dir[i]);
     }
+    
     if (millis() - lastPrint[i] > 1000) {
       Serial.printf("Motor No: %d", i);
       Serial.print("Target Angle: ");
@@ -185,8 +186,10 @@ void loop() {
       lastPrint[i] = millis();
     }
   }
-  delay(10);
+  if(error[0]<=TOLERANCE&&error[1]<=TOLERANCE&&error[2]<=TOLERANCE&&error[3]<=TOLERANCE){
+     digitalWrite(feedback_pin, LOW);
+  }
+  
 }
 
 
-pivot code
