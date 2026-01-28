@@ -103,17 +103,6 @@ class ArmControllerIntegrated(Node):
                     self.upper_pwm = 0
                 else:
                     self.upper_pwm = self.upper_pid.update(upper_current_value, upper_target_value)
-
-                # if(abs(self.upper_pwm) > self.PWMmax):
-                #     if(self.upper_pwm > 0):
-                #         self.upper_pwm = self.PWMmax
-                #     else:
-                #         self.upper_pwm = -self.PWMmax
-                # if(abs(self.lower_pwm) > self.PWMmax):
-                #     if(self.lower_pwm > 0):
-                #         self.lower_pwm = self.PWMmax
-                #     else:
-                #         self.lower_pwm = -self.PWMmax
                 self.upper_pwm = min(max(self.upper_pwm, -self.PWMmax), self.PWMmax)
                 self.lower_pwm = min(max(self.lower_pwm, -self.PWMmax), self.PWMmax)
 
@@ -122,7 +111,6 @@ class ArmControllerIntegrated(Node):
 
                 self.pwm_publisher.publish(pwm_values)
                 
-                # Check if both PIDs are done and set busy flag
                 if (self.start_PID1 == False and self.start_PID2 == False):
                     if ((self.lower_pwm | self.upper_pwm) == 0):
                         self.is_busy = False
@@ -136,7 +124,7 @@ class ArmControllerIntegrated(Node):
                     self.start_PID1 = False
                     self.start_PID2 = False
                 
-                # Publish busy status
+                
                 if(self.is_busy!= self.prevBusy):
                     busy_msg = Bool()
                     busy_msg.data = self.is_busy
