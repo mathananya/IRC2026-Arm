@@ -43,7 +43,7 @@ float Kd = 0.03;
 // Raw PWM Constant
 // Multiplier to convert target_v (m/s) to PWM. 
 // Assuming target 1.0 = 255 PWM. Adjust if needed.
-const float PWM_GAIN = 225.0; 
+const float PWM_GAIN = 200.0; 
 
 float target_v1 = 0.0;
 float target_v2 = 0.0;
