@@ -12,8 +12,8 @@ const int limitSwitchPin[4] = { 13, 12, 35, 34 };
 bool stopped[4] = { false, false, false, false };
 const int pwm[4] = { 5, 17, 16, 22 };
 const int dir[4] = { 15, 21, 4, 23 };
-const int ENC_A[4] = { 25, 27, 19, 33 };
-const int ENC_B[4] = { 26, 14, 18, 32 };
+const int ENC_A[4] = { 26, 14, 19, 33 };
+const int ENC_B[4] = { 25, 27, 18, 32 };
 int target_angle[4] = { 0, 0, 0, 0 };
 unsigned long time_in_cycle[4] = { 0, 0, 0, 0 };
 int16_t count[4] = { 0, 0, 0, 0 };
@@ -73,7 +73,7 @@ void gohome() {
       }
       else if(stopped[i] == false) {
         digitalWrite(feedback_pin, HIGH);
-        if (i == 3 || i == 1)   {
+        if (i == 3 || i==0)   {
           setMotor(MOTOR_SPEED, true, pwm[i], dir[i]);
         } else {
           setMotor(MOTOR_SPEED, false, pwm[i], dir[i]);
@@ -138,14 +138,14 @@ void loop() {
   }
     switch (mode) {
     case 1:
-      target_angle[0] = 60;
-      target_angle[1] = -60;
+      target_angle[0] = -60;
+      target_angle[1] = 60;
       target_angle[2] = 60;
       target_angle[3] = -60;
       break;
     case 2:
-      target_angle[0] = 90;
-      target_angle[1] = -90;
+      target_angle[0] = -90;
+      target_angle[1] = 90;
       target_angle[2] = 90;
       target_angle[3] = -90;
       break;
