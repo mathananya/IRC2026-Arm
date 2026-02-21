@@ -1,0 +1,32 @@
+running egg_info
+creating ../../build/arm_urdf/arm_urdf.egg-info
+writing ../../build/arm_urdf/arm_urdf.egg-info/PKG-INFO
+writing dependency_links to ../../build/arm_urdf/arm_urdf.egg-info/dependency_links.txt
+writing entry points to ../../build/arm_urdf/arm_urdf.egg-info/entry_points.txt
+writing requirements to ../../build/arm_urdf/arm_urdf.egg-info/requires.txt
+writing top-level names to ../../build/arm_urdf/arm_urdf.egg-info/top_level.txt
+writing manifest file '../../build/arm_urdf/arm_urdf.egg-info/SOURCES.txt'
+reading manifest file '../../build/arm_urdf/arm_urdf.egg-info/SOURCES.txt'
+adding license file 'LICENSE'
+writing manifest file '../../build/arm_urdf/arm_urdf.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/criss/arm_control/build/arm_urdf/build
+creating /home/criss/arm_control/build/arm_urdf/build/lib
+creating /home/criss/arm_control/build/arm_urdf/build/lib/arm_urdf
+copying arm_urdf/__init__.py -> /home/criss/arm_control/build/arm_urdf/build/lib/arm_urdf
+running install
+running install_lib
+creating /home/criss/arm_control/install/arm_urdf/lib/python3.10/site-packages/arm_urdf
+copying /home/criss/arm_control/build/arm_urdf/build/lib/arm_urdf/__init__.py -> /home/criss/arm_control/install/arm_urdf/lib/python3.10/site-packages/arm_urdf
+byte-compiling /home/criss/arm_control/install/arm_urdf/lib/python3.10/site-packages/arm_urdf/__init__.py to __init__.cpython-310.pyc
+running install_data
+creating /home/criss/arm_control/install/arm_urdf/share/ament_index
+creating /home/criss/arm_control/install/arm_urdf/share/ament_index/resource_index
+creating /home/criss/arm_control/install/arm_urdf/share/ament_index/resource_index/packages
+copying resource/arm_urdf -> /home/criss/arm_control/install/arm_urdf/share/ament_index/resource_index/packages
+copying package.xml -> /home/criss/arm_control/install/arm_urdf/share/arm_urdf
+running install_egg_info
+Copying ../../build/arm_urdf/arm_urdf.egg-info to /home/criss/arm_control/install/arm_urdf/lib/python3.10/site-packages/arm_urdf-0.0.0-py3.10.egg-info
+running install_scripts
+writing list of installed files to '/home/criss/arm_control/build/arm_urdf/install.log'

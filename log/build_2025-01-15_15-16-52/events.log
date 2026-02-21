@@ -1,0 +1,97 @@
+[0.000000] (-) TimerEvent: {}
+[0.000376] (arm_manual_control) JobQueued: {'identifier': 'arm_manual_control', 'dependencies': OrderedDict()}
+[0.000440] (arm_urdf) JobQueued: {'identifier': 'arm_urdf', 'dependencies': OrderedDict()}
+[0.000487] (arm_manual_control) JobStarted: {'identifier': 'arm_manual_control'}
+[0.015924] (arm_urdf) JobStarted: {'identifier': 'arm_urdf'}
+[0.099101] (-) TimerEvent: {}
+[0.199391] (-) TimerEvent: {}
+[0.299690] (-) TimerEvent: {}
+[0.400017] (-) TimerEvent: {}
+[0.500347] (-) TimerEvent: {}
+[0.600644] (-) TimerEvent: {}
+[0.700937] (-) TimerEvent: {}
+[0.801257] (-) TimerEvent: {}
+[0.901582] (-) TimerEvent: {}
+[1.001883] (-) TimerEvent: {}
+[1.102186] (-) TimerEvent: {}
+[1.202531] (-) TimerEvent: {}
+[1.302932] (-) TimerEvent: {}
+[1.389294] (arm_manual_control) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'egg_info', '--egg-base', '../../build/arm_manual_control', 'build', '--build-base', '/home/criss/arm_control/build/arm_manual_control/build', 'install', '--record', '/home/criss/arm_control/build/arm_manual_control/install.log', '--single-version-externally-managed', 'install_data'], 'cwd': '/home/criss/arm_control/src/arm_manual_control', 'env': {'LESSOPEN': '| /usr/bin/lesspipe %s', 'no_proxy': 'localhost,127.0.0.0/8,::1', 'LANGUAGE': 'en_IN:en', 'USER': 'criss', 'XDG_SESSION_TYPE': 'wayland', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib', 'HOME': '/home/criss', 'OLDPWD': '/home/criss/arm_control/src', 'DESKTOP_SESSION': 'ubuntu', 'NO_PROXY': 'localhost,127.0.0.0/8,::1', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'DBUS_STARTER_BUS_TYPE': 'session', 'SYSTEMD_EXEC_PID': '1425', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus,guid=a76a3d170bdf2ba23b909ab267878279', 'COLORTERM': 'truecolor', 'IM_CONFIG_PHASE': '1', 'WAYLAND_DISPLAY': 'wayland-0', 'ROS_DISTRO': 'humble', 'LOGNAME': 'criss', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'criss', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin', 'SESSION_MANAGER': 'local/criss-OBC:@/tmp/.ICE-unix/1425,unix/criss-OBC:/tmp/.ICE-unix/1425', 'XDG_MENU_PREFIX': 'gnome-', 'GNOME_TERMINAL_SCREEN': '/org/gnome/Terminal/screen/b36eba87_a058_4dfa_b176_cd912045885a', 'GNOME_SETUP_DISPLAY': ':1', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':0', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/.mutter-Xwaylandauth.L189Z2', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'GNOME_TERMINAL_SERVICE': ':1.100', 'SSH_AGENT_LAUNCHER': 'gnome-keyring', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/opt/ros/humble', 'SHELL': '/bin/bash', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/criss/arm_control/build/arm_manual_control', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'DBUS_STARTER_ADDRESS': 'unix:path=/run/user/1000/bus,guid=a76a3d170bdf2ba23b909ab267878279', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/criss/arm_control/build/arm_manual_control/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/criss/arm_control/install/arm_manual_control/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages', 'COLCON': '1', 'VTE_VERSION': '6800'}, 'shell': False}
+[1.393116] (arm_urdf) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'egg_info', '--egg-base', '../../build/arm_urdf', 'build', '--build-base', '/home/criss/arm_control/build/arm_urdf/build', 'install', '--record', '/home/criss/arm_control/build/arm_urdf/install.log', '--single-version-externally-managed', 'install_data'], 'cwd': '/home/criss/arm_control/src/arm_urdf', 'env': {'LESSOPEN': '| /usr/bin/lesspipe %s', 'no_proxy': 'localhost,127.0.0.0/8,::1', 'LANGUAGE': 'en_IN:en', 'USER': 'criss', 'XDG_SESSION_TYPE': 'wayland', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib', 'HOME': '/home/criss', 'OLDPWD': '/home/criss/arm_control/src', 'DESKTOP_SESSION': 'ubuntu', 'NO_PROXY': 'localhost,127.0.0.0/8,::1', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'DBUS_STARTER_BUS_TYPE': 'session', 'SYSTEMD_EXEC_PID': '1425', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus,guid=a76a3d170bdf2ba23b909ab267878279', 'COLORTERM': 'truecolor', 'IM_CONFIG_PHASE': '1', 'WAYLAND_DISPLAY': 'wayland-0', 'ROS_DISTRO': 'humble', 'LOGNAME': 'criss', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'criss', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin', 'SESSION_MANAGER': 'local/criss-OBC:@/tmp/.ICE-unix/1425,unix/criss-OBC:/tmp/.ICE-unix/1425', 'XDG_MENU_PREFIX': 'gnome-', 'GNOME_TERMINAL_SCREEN': '/org/gnome/Terminal/screen/b36eba87_a058_4dfa_b176_cd912045885a', 'GNOME_SETUP_DISPLAY': ':1', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':0', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/.mutter-Xwaylandauth.L189Z2', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'GNOME_TERMINAL_SERVICE': ':1.100', 'SSH_AGENT_LAUNCHER': 'gnome-keyring', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/opt/ros/humble', 'SHELL': '/bin/bash', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/criss/arm_control/build/arm_urdf', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'DBUS_STARTER_ADDRESS': 'unix:path=/run/user/1000/bus,guid=a76a3d170bdf2ba23b909ab267878279', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/criss/arm_control/build/arm_urdf/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/criss/arm_control/install/arm_urdf/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages', 'COLCON': '1', 'VTE_VERSION': '6800'}, 'shell': False}
+[1.403048] (-) TimerEvent: {}
+[1.503385] (-) TimerEvent: {}
+[1.603697] (-) TimerEvent: {}
+[1.704004] (-) TimerEvent: {}
+[1.739844] (arm_manual_control) StdoutLine: {'line': b'running egg_info\n'}
+[1.740676] (arm_manual_control) StdoutLine: {'line': b'creating ../../build/arm_manual_control/arm_manual_control.egg-info\n'}
+[1.740997] (arm_manual_control) StdoutLine: {'line': b'writing ../../build/arm_manual_control/arm_manual_control.egg-info/PKG-INFO\n'}
+[1.741135] (arm_urdf) StdoutLine: {'line': b'running egg_info\n'}
+[1.741389] (arm_manual_control) StdoutLine: {'line': b'writing dependency_links to ../../build/arm_manual_control/arm_manual_control.egg-info/dependency_links.txt\n'}
+[1.741577] (arm_manual_control) StdoutLine: {'line': b'writing entry points to ../../build/arm_manual_control/arm_manual_control.egg-info/entry_points.txt\n'}
+[1.741686] (arm_manual_control) StdoutLine: {'line': b'writing requirements to ../../build/arm_manual_control/arm_manual_control.egg-info/requires.txt\n'}
+[1.741792] (arm_manual_control) StdoutLine: {'line': b'writing top-level names to ../../build/arm_manual_control/arm_manual_control.egg-info/top_level.txt\n'}
+[1.741979] (arm_manual_control) StdoutLine: {'line': b"writing manifest file '../../build/arm_manual_control/arm_manual_control.egg-info/SOURCES.txt'\n"}
+[1.742119] (arm_urdf) StdoutLine: {'line': b'creating ../../build/arm_urdf/arm_urdf.egg-info\n'}
+[1.742278] (arm_urdf) StdoutLine: {'line': b'writing ../../build/arm_urdf/arm_urdf.egg-info/PKG-INFO\n'}
+[1.742437] (arm_urdf) StdoutLine: {'line': b'writing dependency_links to ../../build/arm_urdf/arm_urdf.egg-info/dependency_links.txt\n'}
+[1.742542] (arm_urdf) StdoutLine: {'line': b'writing entry points to ../../build/arm_urdf/arm_urdf.egg-info/entry_points.txt\n'}
+[1.742641] (arm_urdf) StdoutLine: {'line': b'writing requirements to ../../build/arm_urdf/arm_urdf.egg-info/requires.txt\n'}
+[1.742778] (arm_urdf) StdoutLine: {'line': b'writing top-level names to ../../build/arm_urdf/arm_urdf.egg-info/top_level.txt\n'}
+[1.742874] (arm_urdf) StdoutLine: {'line': b"writing manifest file '../../build/arm_urdf/arm_urdf.egg-info/SOURCES.txt'\n"}
+[1.743755] (arm_manual_control) StdoutLine: {'line': b"reading manifest file '../../build/arm_manual_control/arm_manual_control.egg-info/SOURCES.txt'\n"}
+[1.744040] (arm_manual_control) StdoutLine: {'line': b"adding license file 'LICENSE'\n"}
+[1.744647] (arm_urdf) StdoutLine: {'line': b"reading manifest file '../../build/arm_urdf/arm_urdf.egg-info/SOURCES.txt'\n"}
+[1.744851] (arm_urdf) StdoutLine: {'line': b"adding license file 'LICENSE'\n"}
+[1.745042] (arm_manual_control) StdoutLine: {'line': b"writing manifest file '../../build/arm_manual_control/arm_manual_control.egg-info/SOURCES.txt'\n"}
+[1.745154] (arm_manual_control) StdoutLine: {'line': b'running build\n'}
+[1.745252] (arm_manual_control) StdoutLine: {'line': b'running build_py\n'}
+[1.745423] (arm_manual_control) StdoutLine: {'line': b'creating /home/criss/arm_control/build/arm_manual_control/build\n'}
+[1.745728] (arm_manual_control) StdoutLine: {'line': b'creating /home/criss/arm_control/build/arm_manual_control/build/lib\n'}
+[1.745865] (arm_manual_control) StdoutLine: {'line': b'creating /home/criss/arm_control/build/arm_manual_control/build/lib/arm_manual_control\n'}
+[1.745976] (arm_manual_control) StdoutLine: {'line': b'copying arm_manual_control/__init__.py -> /home/criss/arm_control/build/arm_manual_control/build/lib/arm_manual_control\n'}
+[1.746091] (arm_manual_control) StdoutLine: {'line': b'copying arm_manual_control/commands.py -> /home/criss/arm_control/build/arm_manual_control/build/lib/arm_manual_control\n'}
+[1.746197] (arm_urdf) StdoutLine: {'line': b"writing manifest file '../../build/arm_urdf/arm_urdf.egg-info/SOURCES.txt'\n"}
+[1.746391] (arm_urdf) StdoutLine: {'line': b'running build\n'}
+[1.746506] (arm_urdf) StdoutLine: {'line': b'running build_py\n'}
+[1.746609] (arm_manual_control) StdoutLine: {'line': b'running install\n'}
+[1.746743] (arm_urdf) StdoutLine: {'line': b'creating /home/criss/arm_control/build/arm_urdf/build\n'}
+[1.746842] (arm_manual_control) StdoutLine: {'line': b'running install_lib\n'}
+[1.746940] (arm_urdf) StdoutLine: {'line': b'creating /home/criss/arm_control/build/arm_urdf/build/lib\n'}
+[1.747037] (arm_urdf) StdoutLine: {'line': b'creating /home/criss/arm_control/build/arm_urdf/build/lib/arm_urdf\n'}
+[1.747133] (arm_urdf) StdoutLine: {'line': b'copying arm_urdf/__init__.py -> /home/criss/arm_control/build/arm_urdf/build/lib/arm_urdf\n'}
+[1.747228] (arm_urdf) StdoutLine: {'line': b'running install\n'}
+[1.747329] (arm_urdf) StdoutLine: {'line': b'running install_lib\n'}
+[1.747517] (arm_urdf) StdoutLine: {'line': b'creating /home/criss/arm_control/install/arm_urdf/lib/python3.10/site-packages/arm_urdf\n'}
+[1.747615] (arm_manual_control) StdoutLine: {'line': b'creating /home/criss/arm_control/install/arm_manual_control/lib/python3.10/site-packages/arm_manual_control\n'}
+[1.747716] (arm_manual_control) StdoutLine: {'line': b'copying /home/criss/arm_control/build/arm_manual_control/build/lib/arm_manual_control/__init__.py -> /home/criss/arm_control/install/arm_manual_control/lib/python3.10/site-packages/arm_manual_control\n'}
+[1.747820] (arm_manual_control) StdoutLine: {'line': b'copying /home/criss/arm_control/build/arm_manual_control/build/lib/arm_manual_control/commands.py -> /home/criss/arm_control/install/arm_manual_control/lib/python3.10/site-packages/arm_manual_control\n'}
+[1.747922] (arm_urdf) StdoutLine: {'line': b'copying /home/criss/arm_control/build/arm_urdf/build/lib/arm_urdf/__init__.py -> /home/criss/arm_control/install/arm_urdf/lib/python3.10/site-packages/arm_urdf\n'}
+[1.748082] (arm_manual_control) StdoutLine: {'line': b'byte-compiling /home/criss/arm_control/install/arm_manual_control/lib/python3.10/site-packages/arm_manual_control/__init__.py to __init__.cpython-310.pyc\n'}
+[1.748188] (arm_manual_control) StdoutLine: {'line': b'byte-compiling /home/criss/arm_control/install/arm_manual_control/lib/python3.10/site-packages/arm_manual_control/commands.py to commands.cpython-310.pyc\n'}
+[1.748307] (arm_urdf) StdoutLine: {'line': b'byte-compiling /home/criss/arm_control/install/arm_urdf/lib/python3.10/site-packages/arm_urdf/__init__.py to __init__.cpython-310.pyc\n'}
+[1.748462] (arm_urdf) StdoutLine: {'line': b'running install_data\n'}
+[1.748582] (arm_urdf) StdoutLine: {'line': b'creating /home/criss/arm_control/install/arm_urdf/share/ament_index\n'}
+[1.748682] (arm_urdf) StdoutLine: {'line': b'creating /home/criss/arm_control/install/arm_urdf/share/ament_index/resource_index\n'}
+[1.748810] (arm_urdf) StdoutLine: {'line': b'creating /home/criss/arm_control/install/arm_urdf/share/ament_index/resource_index/packages\n'}
+[1.748957] (arm_urdf) StdoutLine: {'line': b'copying resource/arm_urdf -> /home/criss/arm_control/install/arm_urdf/share/ament_index/resource_index/packages\n'}
+[1.749058] (arm_urdf) StdoutLine: {'line': b'copying package.xml -> /home/criss/arm_control/install/arm_urdf/share/arm_urdf\n'}
+[1.749190] (arm_urdf) StdoutLine: {'line': b'running install_egg_info\n'}
+[1.749291] (arm_manual_control) StdoutLine: {'line': b'running install_data\n'}
+[1.749438] (arm_manual_control) StdoutLine: {'line': b'creating /home/criss/arm_control/install/arm_manual_control/share/ament_index\n'}
+[1.749574] (arm_manual_control) StdoutLine: {'line': b'creating /home/criss/arm_control/install/arm_manual_control/share/ament_index/resource_index\n'}
+[1.749669] (arm_manual_control) StdoutLine: {'line': b'creating /home/criss/arm_control/install/arm_manual_control/share/ament_index/resource_index/packages\n'}
+[1.749762] (arm_manual_control) StdoutLine: {'line': b'copying resource/arm_manual_control -> /home/criss/arm_control/install/arm_manual_control/share/ament_index/resource_index/packages\n'}
+[1.749856] (arm_manual_control) StdoutLine: {'line': b'copying package.xml -> /home/criss/arm_control/install/arm_manual_control/share/arm_manual_control\n'}
+[1.749948] (arm_manual_control) StdoutLine: {'line': b'running install_egg_info\n'}
+[1.752025] (arm_urdf) StdoutLine: {'line': b'Copying ../../build/arm_urdf/arm_urdf.egg-info to /home/criss/arm_control/install/arm_urdf/lib/python3.10/site-packages/arm_urdf-0.0.0-py3.10.egg-info\n'}
+[1.752728] (arm_manual_control) StdoutLine: {'line': b'Copying ../../build/arm_manual_control/arm_manual_control.egg-info to /home/criss/arm_control/install/arm_manual_control/lib/python3.10/site-packages/arm_manual_control-0.0.0-py3.10.egg-info\n'}
+[1.753231] (arm_urdf) StdoutLine: {'line': b'running install_scripts\n'}
+[1.753820] (arm_manual_control) StdoutLine: {'line': b'running install_scripts\n'}
+[1.778397] (arm_urdf) StdoutLine: {'line': b"writing list of installed files to '/home/criss/arm_control/build/arm_urdf/install.log'\n"}
+[1.778760] (arm_manual_control) StdoutLine: {'line': b"writing list of installed files to '/home/criss/arm_control/build/arm_manual_control/install.log'\n"}
+[1.804139] (-) TimerEvent: {}
+[1.814093] (arm_urdf) CommandEnded: {'returncode': 0}
+[1.837295] (arm_urdf) JobEnded: {'identifier': 'arm_urdf', 'rc': 0}
+[1.837980] (arm_manual_control) CommandEnded: {'returncode': 0}
+[1.852312] (arm_manual_control) JobEnded: {'identifier': 'arm_manual_control', 'rc': 0}
+[1.853835] (-) EventReactorShutdown: {}
