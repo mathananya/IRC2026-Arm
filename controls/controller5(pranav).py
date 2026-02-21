@@ -30,7 +30,7 @@ class AckermannDriveController(Node):
         self.max_v = 1.0
         self.steer_step = 1.0
 
-        # --- THE FIX: Continuous Publishing Timer (20Hz) ---
+        # Continuous Publishing Timer (20Hz)
         self.timer = self.create_timer(0.05, self.publish_state)
 
         self.get_logger().info("Drive Controller Started. Streaming at 20Hz. Waiting for /keyBoard input...")
@@ -62,9 +62,6 @@ class AckermannDriveController(Node):
             self.publish_state() 
             rclpy.shutdown()
             return
-            
-        # Notice we removed self.publish_state() from here!
-        # The callback now ONLY updates the variables.
 
     def publish_state(self):
         # ---------------------------------------------
@@ -91,8 +88,8 @@ class AckermannDriveController(Node):
         msg_angles.data = processed_angles
         self.pub_angles.publish(msg_angles)
 
-     # ---------------------------------------------
-        # 2. DRIVE VELOCITY MATH (IMAGE FORMULAS)
+        # ---------------------------------------------
+        # 2. DRIVE VELOCITY MATH (DYNAMIC KINEMATICS FIX)
         # ---------------------------------------------
         msg_wheels = Float32MultiArray()
 
@@ -103,46 +100,39 @@ class AckermannDriveController(Node):
             v_rf = self.vx
             v_rr = self.vx
         else:
-            # Convert pivot angles to radians for math.sin()
-            rad_left = math.radians(abs(theta_left))
-            rad_right = math.radians(abs(theta_right))
+            alpha = math.radians(abs(self.center_steer))
             
-            # Base speed (replaces the '250' from your image to allow throttle control)
+            # 1. Calculate distance to ICC
+            R = self.L / math.tan(alpha)
+            
+            # 2. Calculate turning radius for each wheel position
+            r_fixed_inner = R - (self.W / 2.0)
+            r_fixed_outer = R + (self.W / 2.0)
+            r_steered_inner = math.sqrt(r_fixed_inner**2 + self.L**2)
+            r_steered_outer = math.sqrt(r_fixed_outer**2 + self.L**2)
+            
+            # 3. Calculate Angular Velocity (omega)
             v_base = abs(self.vx)
+            omega = v_base / r_steered_outer
+            
+            # 4. Calculate true continuous speeds (Replaces broken sine formulas)
+            v_of = v_base                  # Steered Outer (Fastest)
+            v_if = omega * r_steered_inner # Steered Inner
+            v_ob = omega * r_fixed_outer   # Fixed Outer
+            v_ib = omega * r_fixed_inner   # Fixed Inner
             
             if self.center_steer > 0:
-                # TURNING LEFT (ICC is on the Left)
-                O1 = rad_left   # Inner steered (Left Rear)
-                O2 = rad_right  # Outer steered (Right Rear)
-                
-                # Your exact image formulas 
-                v_of = v_base
-                v_if = v_base * (math.sin(O1) / math.sin(O2))
-                v_ob = v_base * (315.8 / 250.0) * math.sin(O2)
-                v_ib = v_base * (157.9 / 250.0) * math.sin(O2)
-                
-                # Map physical wheels (Reverse Driving)
-                mag_lf = v_ob  # Inner Back
-                mag_rf = v_if  # Outer Back
-                mag_lr = v_of  # Inner Front
-                mag_rr = v_ib  # Outer Front
-                
+                # TURNING LEFT (Retaining your debugged physical mapping)
+                mag_lf = v_ob
+                mag_rf = v_if
+                mag_lr = v_of
+                mag_rr = v_ib
             else:
-                # TURNING RIGHT (ICC is on the Right)
-                O1 = rad_right  # Inner steered (Right Rear)
-                O2 = rad_left   # Outer steered (Left Rear)
-                
-                # Your exact image formulas
-                v_of = v_base
-                v_if = v_base * (math.sin(O1) / math.sin(O2))
-                v_ob = v_base * (315.8 / 250.0) * math.sin(O2)
-                v_ib = v_base * (157.9 / 250.0) * math.sin(O2)
-                
-                # Map physical wheels (Reverse Driving)
-                mag_lf = v_if  # Outer Back
-                mag_rf = v_ob  # Inner Back
-                mag_lr = v_ib  # Outer Front
-                mag_rr = v_of  # Inner Front
+                # TURNING RIGHT (Retaining your debugged physical mapping)
+                mag_lf = v_if
+                mag_rf = v_ob
+                mag_lr = v_ib
+                mag_rr = v_of
 
             # Apply directional signs (Left negative, Right positive)
             direction = 1.0 if self.vx >= 0 else -1.0
@@ -154,6 +144,7 @@ class AckermannDriveController(Node):
 
         msg_wheels.data = [float(v_lf), float(v_lr), float(v_rf), float(v_rr)]
         self.pub_wheels.publish(msg_wheels)
+        
         # Dashboard Feedback
         print(f"\rSpeed: {self.vx:5.1f} | Input: {self.center_steer:5.1f}° | W1(L): {theta_left:5.1f}° | W3(R): {theta_right:5.1f}°    ", end="", flush=True)
 
