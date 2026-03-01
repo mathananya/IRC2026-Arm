@@ -27,27 +27,27 @@ TaskResult last_result = RESULT_NONE;
 unsigned long result_start_time = 0; 
 
 
-#define WRIST1_PWM 18//5
-#define WRIST1_DIR 4//28
+#define WRIST1_PWM 18//18
+#define WRIST1_DIR 19//4
 #define WRIST1_ENCA 37
 #define WRIST1_ENCB 35
 
-#define WRIST2_PWM 19//4
-#define WRIST2_DIR 27//26
+#define WRIST2_PWM 17//19
+#define WRIST2_DIR 5//27
 #define WRIST2_ENCA 41
 #define WRIST2_ENCB 40
 
-#define GRIPPY_PWM 33//2
-#define GRIPPY_DIR 14//22
+#define GRIPPY_PWM 14//33
+#define GRIPPY_DIR 27//14
 #define GRIPPY_ENCA 44
 #define GRIPPY_ENCB 45
 
-#define LA1_PWM 21//11
-#define LA1_DIR 23//49
-#define LA1_POTEN 35//A7
+#define LA1_PWM 33//21
+#define LA1_DIR 32//23
+#define LA1_POTEN 35//35
 
-#define LA2_PWM 26//10
-#define LA2_DIR 5//48
+#define LA2_PWM 26//26
+#define LA2_DIR 25//5
 #define LA2_POTEN 34//A6
 
 // < -------------- MICRO ROS DEFINE --------------->
