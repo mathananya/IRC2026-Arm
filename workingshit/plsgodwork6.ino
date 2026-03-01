@@ -11,23 +11,23 @@
 #include <std_msgs/msg/string.h> 
 
 // --- PIN DEFINITIONS ---
-#define M1_PWM 4
-#define M1_DIR 15
+#define M1_PWM 13//4
+#define M1_DIR 21//15
 #define ENC1_A 33 
 #define ENC1_B 32
 
-#define M2_PWM 17
-#define M2_DIR 16 
+#define M2_PWM 16//17
+#define M2_DIR 4//16
 #define ENC2_A 34
 #define ENC2_B 35
 
-#define M3_PWM 25
-#define M3_DIR 26
+#define M3_PWM 2//15
+#define M3_DIR 15//26
 #define ENC3_A 5
 #define ENC3_B 18
 
-#define M4_PWM 27
-#define M4_DIR 14
+#define M4_PWM  0  //27
+#define M4_DIR 12//14
 #define ENC4_A 23
 #define ENC4_B 19
 
