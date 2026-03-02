@@ -7,19 +7,19 @@
 #include <rclc/rclc.h>
 #include <rclc/executor.h>
 #include <std_msgs/msg/float32_multi_array.h>
-#define MOTOR_SPEED 200
+#define MOTOR_SPEED 255
 #define input_2 39 //VN
 #define input_1 36 //VP
 #define feedback_pin 2
 //115 wheel 4
-int TOLERANCE = 50;
+int TOLERANCE = 100;
 
 const int limitSwitchPin[4] = { 13, 12, 35, 34 };
 bool stopped[4] = { false, false, false, false };
-const int pwm[4] = { 5, 17, 16, 22 };
-const int dir[4] = { 15, 21, 4, 23 };
-const int ABS_ENC_PIN[4] = { 26, 14, 25, 33 };
-int target_angle[4] = { 1185, 1290,1695, 1787 };
+const int pwm[4] = { 23, 21, 18, 17 };//5,17,16,22
+const int dir[4] = { 22, 19, 5, 16 };//15,21,4,23
+const int ABS_ENC_PIN[4] = { 32, 25, 27, 12 };// 26,14,25,33
+int target_angle[4] = { 1500, 1470,1800, 1900 };
 unsigned long time_in_cycle[4] = { 0, 0, 0, 0 };
 int16_t count[4] = { 0, 0, 0, 0 };
 long target_counts[4] = { 0, 0, 0, 0 };
@@ -48,10 +48,10 @@ void subscription_callback(const void * msgin) {
     }
 
     // Apply hardware home offsets
-    angles[0] += 104.0; // Wheel 1 offset
-    angles[1] += 113.0;
-    angles[2] += 150.0; // Wheel 1 offset
-    angles[3] += 157.0;
+    angles[0] += 131.0; // Wheel 1 offset
+    angles[1] += 129.0;
+    angles[2] += 158.0; // Wheel 1 offset
+    angles[3] += 167.0;
      // Wheel 3 offset
 
     for(int i = 0; i < 4; i++) {
