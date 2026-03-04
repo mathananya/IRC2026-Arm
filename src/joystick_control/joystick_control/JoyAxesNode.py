@@ -9,7 +9,9 @@ from collections import deque
 
 X_Z_STEP = 100
 GRIPPER_STEP = 200
-WRIST_STEP = 50
+LEFT_WRIST_STEP = 100
+RIGHT_WRIST_STEP = 150
+WRIST_STEP = 100
 
 
 class JoyAxes(Node):
@@ -105,25 +107,25 @@ class JoyAxes(Node):
                     if(self.buttons[0] == 1):
                         pwmPubVal = [0,0,0,0,0]
                     else:
-                        pwmPubVal = [0,0,WRIST_STEP,WRIST_STEP,0]
+                        pwmPubVal = [0,0,RIGHT_WRIST_STEP,LEFT_WRIST_STEP,0]
                         self.get_logger().info(f"Wrist moving same direction by {WRIST_STEP} positive")
                 elif(joyAx[5] == -1):
                     if(self.buttons[0] == 1):
                         pwmPubVal = [0,0,0,0,0]
                     else:
-                        pwmPubVal = [0,0,-WRIST_STEP,-WRIST_STEP,0]
+                        pwmPubVal = [0,0,-RIGHT_WRIST_STEP,-LEFT_WRIST_STEP,0]
                         self.get_logger().info(f"Wrist moving same direction by {WRIST_STEP} negative")
                 elif(joyAx[4] == 1):
                     if(self.buttons[0] == 1):
                         pwmPubVal = [0,0,0,0,0]
                     else:
-                        pwmPubVal = [0,0,WRIST_STEP,-WRIST_STEP,0]
+                        pwmPubVal = [0,0,RIGHT_WRIST_STEP,-LEFT_WRIST_STEP,0]
                         self.get_logger().info(f"Wrist moving opposite direction by {WRIST_STEP} positive")
                 elif(joyAx[4] == -1):
                     if(self.buttons[0] == 1):
                         pwmPubVal = [0,0,0,0,0]
                     else:
-                        pwmPubVal = [0,0,-WRIST_STEP,WRIST_STEP,0]
+                        pwmPubVal = [0,0,-RIGHT_WRIST_STEP,LEFT_WRIST_STEP,0]
                         self.get_logger().info(f"Wrist moving opposite direction by {WRIST_STEP} negative")
                 elif(joyAx[1] == 1):
                     if(self.buttons[0] == 1):

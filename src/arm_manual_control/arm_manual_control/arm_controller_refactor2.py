@@ -52,7 +52,7 @@ class ArmControllerIntegrated(Node):
         self.lower_limit_flag = False
         self.stop_decision = True
         # self.limit_margin = 15
-        self.PIDMargin = 5
+        self.PIDMargin = 50
         self.PWMmax = 250
         # self.prevIKToggle = None
         self.prevBusy = None
