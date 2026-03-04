@@ -7,6 +7,7 @@
 #include <rclc/rclc.h>
 #include <rclc/executor.h>
 #include <std_msgs/msg/float32_multi_array.h>
+
 #define MOTOR_SPEED 255
 #define input_2 39 //VN
 #define input_1 36 //VP
@@ -19,7 +20,8 @@ bool stopped[4] = { false, false, false, false };
 const int pwm[4] = { 23, 21, 18, 17 };//5,17,16,22
 const int dir[4] = { 22, 19, 5, 16 };//15,21,4,23
 const int ABS_ENC_PIN[4] = { 32, 25, 27, 12 };// 26,14,25,33
-int target_angle[4] = { 1500, 1470,1800, 1900 };
+const int ZERO_DEG_OFFSET[4] = { 1500, 1470, 1800, 1900 }; // absolute encoder counts at 0 degrees
+int target_angle[4] = { 1500, 1470, 1800, 1900 };
 unsigned long time_in_cycle[4] = { 0, 0, 0, 0 };
 int16_t count[4] = { 0, 0, 0, 0 };
 long target_counts[4] = { 0, 0, 0, 0 };
@@ -32,6 +34,11 @@ volatile long current_position[4] = { 0, 0, 0, 0 };  // Start at 0
 rcl_subscription_t subscriber;
 std_msgs__msg__Float32MultiArray msg;
 float msg_data[4]; // Buffer for incoming array
+
+rcl_publisher_t publisher;
+std_msgs__msg__Float32MultiArray pub_msg;
+float pub_msg_data[4]; // Buffer for outgoing encoder array
+
 rclc_executor_t executor;
 rclc_support_t support;
 rcl_allocator_t allocator;
@@ -44,15 +51,15 @@ void subscription_callback(const void * msgin) {
   if (msg->data.size >= 4) {
     float angles[4];
     for(int i = 0; i < 4; i++) {
-      angles[i] = msg->data.data[i];
+      angles[i] = msg->data.data[i] + (float)(ZERO_DEG_OFFSET[i] * 360.0/4096.0);
     }
 
-    // Apply hardware home offsets
-    angles[0] += 131.0; // Wheel 1 offset
-    angles[1] += 129.0;
-    angles[2] += 158.0; // Wheel 1 offset
-    angles[3] += 167.0;
-     // Wheel 3 offset
+    // Not needed now 
+    // angles[0] += 131.0; // Wheel 1 offset
+    // angles[1] += 129.0;
+    // angles[2] += 158.0; // Wheel 1 offset
+    // angles[3] += 167.0;
+    //  
 
     for(int i = 0; i < 4; i++) {
       // Wrap angles between 0 and 360
@@ -117,6 +124,18 @@ void setup() {
     "target_angles"
   );
 
+
+  pub_msg.data.capacity = 4;
+  pub_msg.data.data = pub_msg_data;
+  pub_msg.data.size = 4;
+
+  rclc_publisher_init_default(
+    &publisher,
+    &node,
+    ROSIDL_GET_MSG_TYPE_SUPPORT(std_msgs, msg, Float32MultiArray),
+    "pivot_encoders"
+  );
+
   rclc_executor_init(&executor, &support.context, 1, &allocator);
   rclc_executor_add_subscription(&executor, &subscriber, &msg, &subscription_callback, ON_NEW_DATA);
 }
@@ -140,6 +159,8 @@ void loop() {
   // Serial.println("Current"+String(analogRead(26)) + " " + String(analogRead(14)) + " " + String(analogRead(25)) + " " + String(analogRead(33)));
   
   rclc_executor_spin_some(&executor, RCL_MS_TO_NS(10));
+
+  
   for (int i = 0; i < 4; i++) {
     
       current_position[i] = analogRead(ABS_ENC_PIN[i]);
@@ -175,6 +196,12 @@ void loop() {
  
   
 }
+  // publishing current encoder values on "pivot_encoders"
+  for (int i = 0; i < 4; i++) {
+    pub_msg_data[i] = (float)current_position[i];
+  }
+  rcl_publish(&publisher, &pub_msg, NULL);
+
  if(abs(error[1])<=TOLERANCE&&abs(error[3])<=TOLERANCE){
      digitalWrite(feedback_pin, LOW);     
   }
