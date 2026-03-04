@@ -9,12 +9,12 @@ LOWER_ARM_LENGTH = 430.994  # mm
 # CONVERT ENCODER VALUES TO POSE OF THE ARM END EFFECTOR
 
 def encoder_to_angle_upper(encoder_value):
-    angle_degrees = (encoder_value - 55.59) / 8.9028
+    angle_degrees = -0.02863 * encoder_value + 101.58735
     return angle_degrees
 
 
 def encoder_to_angle_lower(encoder_value):
-    angle_degrees = (encoder_value - 823.8) / -4.492
+    angle_degrees = 0.05689 * encoder_value - 87.22924
     return angle_degrees
 
 
@@ -22,10 +22,8 @@ def encoder_to_pose(upper_encoder, lower_encoder):
     upper_angle = encoder_to_angle_upper(upper_encoder)
     lower_angle = encoder_to_angle_lower(lower_encoder)
 
-    total_x = UPPER_ARM_LENGTH * math.sin(math.radians(
-        lower_angle - upper_angle)) + LOWER_ARM_LENGTH * math.cos(math.radians(lower_angle))
-    total_z = -UPPER_ARM_LENGTH * math.cos(math.radians(
-        lower_angle - upper_angle)) + LOWER_ARM_LENGTH * math.sin(math.radians(lower_angle))
+    total_x = LOWER_ARM_LENGTH * math.sin(math.radians(lower_angle)) + UPPER_ARM_LENGTH * math.sin(math.radians(lower_angle + upper_angle))
+    total_z = LOWER_ARM_LENGTH * math.cos(math.radians(lower_angle)) + UPPER_ARM_LENGTH * math.cos(math.radians(lower_angle + upper_angle))
     
     return total_x, total_z
 
@@ -33,12 +31,12 @@ def encoder_to_pose(upper_encoder, lower_encoder):
 # CONVERT POSE OF THE ARM END EFFECTOR TO ENCODER VALUES
 
 def angle_upper_to_encoder(angle_degrees):
-    encoder_value = angle_degrees * 8.9028 + 55.59
+    encoder_value = -34.84286 * angle_degrees + 3541.92857
     return encoder_value
 
 
 def angle_lower_to_encoder(angle_degrees):
-    encoder_value = angle_degrees * -4.492 + 823.8
+    encoder_value = 17.51429 * angle_degrees + 1534.28571
     return encoder_value
 
 
@@ -50,12 +48,13 @@ def arm_angle_from_pose(x, z):
 
     var_angA1 = math.degrees(math.acos(varA1))
 
-    lower_angle_degrees = math.degrees(math.atan2(z, x)) + var_angA1
+    theta_base = math.degrees(math.atan2(x, z))
+    lower_angle_degrees = theta_base - var_angA1
 
     varA2 = (UPPER_ARM_LENGTH**2 + LOWER_ARM_LENGTH**2 - pose_len**2) / (
         2 * UPPER_ARM_LENGTH * LOWER_ARM_LENGTH)
 
-    upper_angle_degrees = 90 - math.degrees(math.acos(varA2))
+    upper_angle_degrees = 180 - math.degrees(math.acos(varA2))
 
     return upper_angle_degrees, lower_angle_degrees
 
