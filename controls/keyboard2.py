@@ -12,7 +12,7 @@ class KeyboardNode(Node):
         
         # We start the loop in a timer so the node initializes properly first
         self.timer = self.create_timer(0.5, self.run_keyboard_listener)
-        self.get_logger().info("Keyboard Node Started. Press W/A/S/D or SPACE.")
+        self.get_logger().info("Keyboard Node Started. Drive: W/A/S/D. Modes: H/N/C. Actuator: 1/2. Stop: SPACE.")
 
     def run_keyboard_listener(self):
         self.timer.cancel() # Stop the timer so we only run this loop once
@@ -20,7 +20,7 @@ class KeyboardNode(Node):
             while rclpy.ok():
                 key = getch()
                 # Publish the key if it's one of our controls
-                if key.lower() in ['w', 'a', 's', 'd', ' ', 'q','n','c','h']:
+                if key.lower() in ['w', 'a', 's', 'd', ' ', 'q','n','c','h','1','2']:
                     msg = String()
                     msg.data = key.lower()
                     self.pub_keyboard.publish(msg)
