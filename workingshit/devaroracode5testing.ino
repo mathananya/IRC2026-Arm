@@ -43,11 +43,11 @@
 
 #define LA1_PWM 33
 #define LA1_DIR 32
-#define LA1_POTEN 35
+#define LA1_POTEN 39
 
 #define LA2_PWM 26
 #define LA2_DIR 25
-#define LA2_POTEN 34
+#define LA2_POTEN 36
 
 // <---------------- CONSTANTS ---------------->
 const float PWM_GAIN = 255.0; 
