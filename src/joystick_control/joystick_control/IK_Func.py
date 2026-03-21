@@ -4,6 +4,15 @@ l1 = 6 #length1 in mm
 l2 = 6 #length2 in mm
 
 
+def check_lim(alpha, beta):
+    lower_limit_min = -45
+    lower_limit_max = 43
+    upper_limit_min = 35
+    upper_limit_max = 100
+    if lower_limit_min <= alpha <= lower_limit_max and upper_limit_min <= beta <= upper_limit_max:
+        return True
+    return False
+
 def calculateIK(X, Z):
     dist_sq = X**2 + Z**2
     R = math.sqrt(dist_sq)
@@ -39,20 +48,16 @@ def FKVerify(alpha, beta):
     return X_check, Z_check
 
 target_X = 6
-target_Z = 6
+target_Z = 10
 
 print(f"--- Target: X={target_X}, Z={target_Z} ---\n")
 solutions = calculateIK(target_X, target_Z)
 
 if solutions:
     sol1, sol2 = solutions
-    
+
     print("Solution 1:")
     print(f"  Alpha: {sol1[0]}°, Beta: {sol1[1]}°")
-    check1_X, check1_Z = FKVerify(math.radians(sol1[0]), math.radians(sol1[1]))
-    print(f"  Verification -> X: {check1_X:.2f}, Z: {check1_Z:.2f}\n")
     
     print("Solution 2:")
     print(f"  Alpha: {sol2[0]}°, Beta: {sol2[1]}°")
-    check2_X, check2_Z = FKVerify(math.radians(sol2[0]), math.radians(sol2[1]))
-    print(f"  Verification -> X: {check2_X:.2f}, Z: {check2_Z:.2f}")
