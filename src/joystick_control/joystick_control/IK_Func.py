@@ -1,7 +1,7 @@
 import math
 
-l1 = 6 #length1 in mm
-l2 = 6 #length2 in mm
+l1 = 430.994 #length1 in mm
+l2 = 462.792 #length2 in mm
 
 
 def check_lim(alpha, beta):
