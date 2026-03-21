@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 import sys
 import rclpy
 from rclpy.node import Node
@@ -27,7 +25,6 @@ class TargetEncoderPublisher(Node):
 
     def publish_target(self, lower_enc, upper_enc):
         msg = Int32MultiArray()
-        # [lower_enc, upper_enc, 0, 0, 0]
         msg.data = [lower_enc, upper_enc, 0, 0, 0]
         self.publisher_.publish(msg)
         self.get_logger().info(f'Published target encoders: {msg.data}')
@@ -72,7 +69,6 @@ def main(args=None):
     rclpy.init(args=args)
     node = TargetEncoderPublisher()
     
-    # Run user input loop in a separate thread so node can still log
     thread = threading.Thread(target=input_thread, args=(node,))
     thread.daemon = True
     thread.start()
