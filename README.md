@@ -21,9 +21,11 @@ If data is being sent from there, the ros2 nodes are completely fine, check micr
 FOR CONTROLLING THE ARM:
 
 go to IRC2026-Arm/src/joystick_control/joystick_control
-do ```
+do
+```
 source ~/IRCFINALNOMORE....<some folder>/irc/bin/activate  #basically source the venv with getch.
-python3 keyboardNode.py```
+python3 keyboardNode.py
+```
 Now you can simply use W A S D keys to control the arm, W and S keys for the lower link and A and D keys for the upper link.
 
 For manual joystick control,in the same directory, locate a file JoyAxesNode.py
