@@ -17,6 +17,9 @@ For manually controlling the arm,
 Ensure microRos is running and the topics are being echoed.
 If you want to debug, send signal using given python scripts/ros nodes and then check ```ros2 topic echo arm_pwm_commands``` to see if data is going.
 If data is being sent from there, the ros2 nodes are completely fine, check microROS implementation and the arduino code for debugging further.
+
+FOR CONTROLLING THE ARM:
+
 go to IRC2026-Arm/src/joystick_control/joystick_control
 do ```
 source ~/IRCFINALNOMORE....<some folder>/irc/bin/activate  #basically source the venv with getch.
