@@ -72,9 +72,9 @@ class AckermannDriveController(Node):
         # ---------------------------------------------------------
 
         # Drive Controls (Filtered - must tap)
-        if key == 's':
+        if key == 'w':
             self.vx = min(self.max_v, self.vx + self.lin_step)
-        elif key == 'w':
+        elif key == 's':
             self.vx = max(-self.max_v, self.vx - self.lin_step)
 
         # Steering Controls (Only active in Ackermann mode)
