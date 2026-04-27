@@ -13,20 +13,21 @@
 #define input_1 36 //VP
 #define feedback_pin 2
 //115 wheel 4
-int TOLERANCE = 100;
+int TOLERANCE = 75;
 
 const int limitSwitchPin[4] = { 13, 12, 35, 34 };
 bool stopped[4] = { false, false, false, false };
 const int pwm[4] = { 23, 21, 18, 17 };//5,17,16,22
 const int dir[4] = { 22, 19, 5, 16 };//15,21,4,23
 const int ABS_ENC_PIN[4] = { 32, 25, 27, 12 };// 26,14,25,33
-const int ZERO_DEG_OFFSET[4] = { 1930, 1410, 1740, 1280 }; // absolute encoder counts at 0 degrees
-int target_angle[4] =  { 1930, 1410, 1740, 1280 };
+const int ZERO_DEG_OFFSET[4] =  { 1861, 1950, 1130, 1296 };
+int target_angle[4] =  { 1861, 1950, 1130, 1296 };
+
 unsigned long time_in_cycle[4] = { 0, 0, 0, 0 };
 int16_t count[4] = { 0, 0, 0, 0 };
 long target_counts[4] = { 0, 0, 0, 0 };
 long error[4] = { 0, 0, 0, 0 };
-const int dirclockhigh[4] = {true,true,false,false};
+const int dirclockhigh[4] = {false,true,false,false};
 
 volatile long current_position[4] = { 0, 0, 0, 0 };  // Start at 0
 
@@ -171,19 +172,30 @@ void loop() {
     // ACW rotation -> encoder INCREASES
     error[i] = target_counts[i] - current_position[i];
 
+    // if (abs(error[i]) <= TOLERANCE) {
+    //   // Close enough -> STOP
+    //   setMotor(0, false, pwm[i], dir[i]);
+    // } else if (error[i] > 0 ) {
+    //   // Encoder needs to INCREASE -> rotate Anti-Clockwise
+    //   // ACW direction is the opposite of the clockwise direction
+    //   digitalWrite(feedback_pin, HIGH);
+    //   setMotor(MOTOR_SPEED, !dirclockhigh[i], pwm[i], dir[i]);
+    // } else {
+    //   // Encoder needs to DECREASE -> rotate Clockwise
+    //   // CW direction is dirclockhigh[i]
+    //   digitalWrite(feedback_pin, HIGH);
+    //   setMotor(MOTOR_SPEED, dirclockhigh[i], pwm[i], dir[i]);
+    // }
+
     if (abs(error[i]) <= TOLERANCE) {
       // Close enough -> STOP
       setMotor(0, false, pwm[i], dir[i]);
-    } else if (error[i] > 0) {
-      // Encoder needs to INCREASE -> rotate Anti-Clockwise
-      // ACW direction is the opposite of the clockwise direction
-      digitalWrite(feedback_pin, HIGH);
-      setMotor(MOTOR_SPEED, !dirclockhigh[i], pwm[i], dir[i]);
-    } else {
-      // Encoder needs to DECREASE -> rotate Clockwise
-      // CW direction is dirclockhigh[i]
-      digitalWrite(feedback_pin, HIGH);
-      setMotor(MOTOR_SPEED, dirclockhigh[i], pwm[i], dir[i]);
+    }else{
+      if(error[i] > 0){
+        setMotor(MOTOR_SPEED, !dirclockhigh[i], pwm[i], dir[i]);
+      }else{
+        setMotor(MOTOR_SPEED, dirclockhigh[i], pwm[i], dir[i]);
+      }
     }
   }
   // publishing current encoder values on "pivot_encoders"
@@ -192,9 +204,9 @@ void loop() {
   }
   rcl_publish(&publisher, &pub_msg, NULL);
 
- if(abs(error[1])<=TOLERANCE&&abs(error[3])<=TOLERANCE){
-     digitalWrite(feedback_pin, LOW);     
-  }
+//  if(abs(error[1])<=TOLERANCE&&abs(error[3])<=TOLERANCE){
+//      digitalWrite(feedback_pin, LOW);     
+//   }
 }
 
 
