@@ -20,14 +20,14 @@ bool stopped[4] = { false, false, false, false };
 const int pwm[4] = { 23, 21, 18, 17 };//5,17,16,22
 const int dir[4] = { 22, 19, 5, 16 };//15,21,4,23
 const int ABS_ENC_PIN[4] = { 32, 25, 27, 12 };// 26,14,25,33
-const int ZERO_DEG_OFFSET[4] =  { 1861, 1950, 1130, 1296 };
-int target_angle[4] =  { 1861, 1950, 1130, 1296 };
+const int ZERO_DEG_OFFSET[4] =  { 2896, 1633, 957, 1717 };
+int target_angle[4] =  { 2896, 1633, 957, 1717 };
 
 unsigned long time_in_cycle[4] = { 0, 0, 0, 0 };
 int16_t count[4] = { 0, 0, 0, 0 };
 long target_counts[4] = { 0, 0, 0, 0 };
 long error[4] = { 0, 0, 0, 0 };
-const int dirclockhigh[4] = {false,true,false,false};
+const int dirclockhigh[4] = {false,true,false,true};
 
 volatile long current_position[4] = { 0, 0, 0, 0 };  // Start at 0
 
