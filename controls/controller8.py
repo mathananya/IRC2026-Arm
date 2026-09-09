@@ -327,11 +327,6 @@ class AckermannDriveController(Node):
                     direction
                 )
 
-        # =====================================================
-        # WHEEL 2 STEERING DIRECTION FIX
-        # =====================================================
-        # DONT TOUCH THIS, IT EXISTS COZ THE ENCODERS GOT MESSED UP.
-        angles[1] = -angles[1]
 
         # =====================================================
         # PUBLISH TOPICS
