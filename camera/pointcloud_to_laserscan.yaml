@@ -1,23 +1,10 @@
-# pointcloud_to_laserscan parameters
-# Reference: ros-perception/pointcloud_to_laserscan README
-#
-# This flattens the filtered 3D point cloud from the RealSense into a 2D
-# LaserScan, which feeds Nav2's standard 2D costmap obstacle layer.
 
 pointcloud_to_laserscan:
   ros__parameters:
-    # --- Height band to sample from the cloud ---
-    # These are in the TARGET FRAME (see target_frame below), typically a
-    # frame with Z pointing up (e.g. base_link), NOT the camera's optical
-    # frame (which has Z pointing forward).
-    # min_height/max_height define a slab around your rover's body height.
-    # TUNE once you know your camera mount height and rover profile:
-    #   min_height: just above ground-plane noise (avoid floor points)
-    #   max_height: just above your rover's tallest point you care about
     min_height: 0.05
     max_height: 0.6
 
-    angle_min: -1.5707963   # -90 deg; matches typical forward-facing RealSense FOV use
+    angle_min: -1.5707963   # -90 deg
     angle_max: 1.5707963    #  90 deg
     angle_increment: 0.0087 # ~0.5 degree resolution
     scan_time: 0.0333       # matches ~30 Hz depth stream
@@ -26,10 +13,7 @@ pointcloud_to_laserscan:
     range_max: 5.0          # keep consistent with threshold_filter.max_distance above
 
     use_inf: true
-
-    # Transform the cloud into base_link (or your robot's base frame) before
-    # flattening, so min_height/max_height are relative to the ground plane,
-    # not tilted with the camera's mount angle.
+    
     target_frame: "base_link"
     transform_tolerance: 0.02
 
